@@ -7,8 +7,8 @@ Retrieve a list of managed devices and basic details about the device status. Th
 
 ### List Devices Request
 
-### Parameters
-* **token**: access token obtained during [authentication](/auth.md)
+#### Parameters
+* **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
 POST /ccrest/publicapi/v2/device/list HTTP/1.1
@@ -62,6 +62,95 @@ Content-Type: application/json
             }
         ]
     }
+```
+
+
+
+
+
+
+## Device Info
+Returns detailed information about the device.
+
+### Device Info Request
+
+### Parameters
+* **clientid**: 
+* **imei**: 
+* **serialnumber**: 
+* **token**: 
+
+```json
+POST /ccrest/publicapi/v2/device/info HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
+    "imei":"",
+    "serialnumber":"",
+    "token":""
+}
+```
+
+### Device Info Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode":null,
+    "errormessage":null,
+    "success":true,
+    "tokenstatus":null,
+    "deviceinfo":
+        {
+            "actions":
+                {
+                    "disablelostmode":
+                        {
+                            "status":0,
+                            "visible":false
+                        },
+                    "enablelostmode":
+                        {"
+                            status":0,
+                            "visible":true
+                        },
+                    "lockscreen":
+                        {
+                            "status":0,
+                            "visible":true
+                        },
+                    "requestlocation":
+                        {
+                            "status":0,
+                            "visible":false
+                        },
+                    "wipefull":
+                        {
+                            "status":0,
+                            "visible":true
+                        }
+                },
+            "androidforworktype":3,
+            "clientid":"CIDWMD501DA0947CA9E14F35B0",
+            "displayname":"P00A",
+            "enrollmenttype":null,
+            "imei":null,
+            "lastcontact":"\/Date(1601998193433)\/",
+            "location":null,
+            "lostmodeenabled":false,
+            "managed":true,
+            "modelname":"Android P00A",
+            "passwordenabled":false,
+            "recoverytoken":null,
+            "serialnumber":"H5NPCX088662FXW",
+            "supervised":false,
+            "type":4
+        }
+}
 ```
 
 
