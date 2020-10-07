@@ -1,4 +1,4 @@
-# Authentication
+# Overview
 
 This section describes the authentication process with the Cortado MDM API. In order to get access to the API, you need to obtain an **access token** first. An access token can be issued for **admin or user access**.
 
