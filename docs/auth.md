@@ -4,13 +4,15 @@ This section describes the authentication process with the Cortado MDM API. In o
 
 A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.
 
-## Parameters
+### Authentication Request
+
+#### Parameters
+* **type**: is always "basic"
+* **usertype**: "user" for user authentication or "admin" for an admin authentication
 * **username**: the Cortado MDM user/admin e-mail address
 * **password**: the Cortado MDM password of the admin/user
 * **mtcid**: the unique id of your Cortado MDM tenant (required for admin authentication request only)
 
-### User Authentication Request
-
 ```json
 POST /ccrest/publicapi/v2/user/login HTTP/1.1
 Host: go.mycortado.com
@@ -18,23 +20,7 @@ Content-Type: application/json
 
 {
     "type": "basic",
-    "usertype": "user",
-    "username": "",
-    "password": ""
-}
-```
-
-### Admin Authentication Request
-
-```json
-POST /ccrest/publicapi/v2/user/login HTTP/1.1
-Host: go.mycortado.com
-Content-Type: application/json
-
-{
-    "type": "basic",
-    "usertype": "admin",
-    "mtcid":"",
+    "usertype": "user|admin",
     "username": "",
     "password": ""
 }
