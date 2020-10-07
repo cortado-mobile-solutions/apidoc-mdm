@@ -158,7 +158,7 @@ Content-Type: application/json
 Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved.
 
 
-### Enabled Lost Mode
+### Enable Lost Mode
 
 #### Parameters
 * **clientid**: 
@@ -227,7 +227,7 @@ Content-Type: application/json
 ```
 
 ## Retrieve Location
-The retrieval of the device location can be triggered. Fetching the latest retrieved location data is done using the device status request.
+The retrieval of the device location can be triggered. Fetching the latest retrieved location data is done using the [device status](#device-info) request.
 
 ### Retrieve Location Request
 
