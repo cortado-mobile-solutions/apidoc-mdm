@@ -1,11 +1,11 @@
 # Authentication
 
-This is how to authenticte with Cortado MDM.
+This section describes the authentication process with the Cortado MDM API. In order to get access to the API, you need to obtain an access token first. An access token can be issued for admin or user access.
+
+A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.
 
 
-### User Authentication
-This request can only be done by endusers (not administrators) that have an Cortado MDM user account set up.
-The issued authentication token grants access to the tenant, the user is configured at.
+## User Authentication Request
 
 ```json
 POST /ccrest/publicapi/v2/user/login HTTP/1.1
@@ -20,7 +20,25 @@ Content-Type: application/json
 }
 ```
 
-Response
+## Admin Authentication Request
+
+```json
+POST /ccrest/publicapi/v2/user/login HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "type": "basic",
+    "usertype": "admin",
+    "mtcid":"%tenantid%",
+    "username": "%username%",
+    "password": "%password%"
+}
+```
+
+## Authentication Response
+
+The server will always respond with a 200 OK HTTP status. The success field within the response indicates success only, if the value is "true". A failed request will return a response with a detailed error message within the "errormessage" field.
 
 ```json
 HTTP/1.1 200 OK
@@ -30,6 +48,7 @@ Content-Type: application/json
     "errorcode":null,
     "errormessage":null,
     "success":true,
-    "tokenstatus":null,"token":"%token%"
+    "tokenstatus":null,
+    "token":"%token%"
 }
 ```
