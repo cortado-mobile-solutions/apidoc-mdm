@@ -1,1 +1,8 @@
-site_name: My Docs
+site_name: Cortado MDM API Documentation
+nav:
+ - Home: index.md
+ - Authentication: auth.md
+ - Device List: devicelistmd
+ - Lost Mode: lostmode.md
+ - Device Location: devicelocation.md
+theme: readthedocs
