@@ -226,10 +226,10 @@ Content-Type: application/json
 }
 ```
 
-## Retrieve Location
-The retrieval of the device location can be triggered. Fetching the latest retrieved location data is done using the [device status](#device-info) request.
+## Trigger Location Retrieval
+The retrieval of the device location can be triggered. Fetching the latest retrieved device location can be done using the [device status](#device-info) request.
 
-### Retrieve Location Request
+### Trigger Location Retrieval Request
 
 ### Parameters
 * **clientid**: 
@@ -246,7 +246,7 @@ Content-Type: application/json
 }
 ```
 
-### Retrieve Location Response
+### Trigger Location Retrieval Response
 
 ```json
 HTTP/1.1 200 OK
