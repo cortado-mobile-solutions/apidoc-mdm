@@ -4,6 +4,8 @@ This section describes the authentication process with the Cortado MDM API. In o
 
 A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.
 
+### Authentication
+
 ### Authentication Request
 
 #### Parameters
