@@ -8,17 +8,15 @@ A user token can only be used for managing devices of the authenticated user. An
 
 ### Authentication Request
 
-| First Header | Second Header | Third Header |
-| ------------ | ------------- | ------------ |
-| Content Cell | Content Cell  | Content Cell |
-| Content Cell | Content Cell  | Content Cell |
-
 #### Parameters
-* **type**: is always *basic*
-* **usertype**: *user* for user authentication or *admin* for an admin authentication
-* **username**: the Cortado MDM user/admin e-mail address
-* **password**: the Cortado MDM password of the admin/user
-* **mtcid**: the unique id of your Cortado MDM tenant (required for admin authentication request only)
+
+| Parameter | Values | Description |
+| ------------ | ------------- | ------------ |
+| **type** | basic | Currently, only basic authentication is supported. |
+| **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
+| **username** |  | the Cortado MDM user/admin e-mail address |
+| **password** |  | the Cortado MDM password of the admin/user |
+| **mtcid** |  | the id of your Cortado MDM tenant (required for admin authentication request only) |
 
 ```json
 POST /ccrest/publicapi/v2/user/login HTTP/1.1
