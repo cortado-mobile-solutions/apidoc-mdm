@@ -8,6 +8,11 @@ A user token can only be used for managing devices of the authenticated user. An
 
 ### Authentication Request
 
+| First Header | Second Header | Third Header |
+| ------------ | ------------- | ------------ |
+| Content Cell | Content Cell  | Content Cell |
+| Content Cell | Content Cell  | Content Cell |
+
 #### Parameters
 * **type**: is always *basic*
 * **usertype**: *user* for user authentication or *admin* for an admin authentication
