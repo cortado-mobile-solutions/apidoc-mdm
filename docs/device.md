@@ -1,6 +1,24 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API. 
 
+#### Device Fields
+* **clientid**: the device identifier
+* **imei**: the device IMEI
+* **serialnumber**: the device serial number
+* **modelname**: device model information
+* **displayname**: display name of the device
+* **lastcontact**: last contact / check-in of the device with the MDM
+* **location**: contains last known location of the device
+* **lostmodeenabled**: is *true*, if lost the lost-mode is enabled. Otherwise false
+* **passwordenabled**: 
+* **recoverytoken**: 
+* **supervised**: 
+
+* **androidforworktype**: 3
+* **enrollmenttype**: null
+* **managed**: true
+* **type**: 4
+
 
 ## List Devices
 Retrieve a list of managed devices and basic details about the device status. The response lists all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
@@ -21,20 +39,6 @@ Content-Type: application/json
 ```
 
 ### List Devices Response
-
-#### Parameters
-* **clientid**: 
-* **displayname**: 
-* **imei**: 
-* **lastcontact**: 
-* **location**: 
-* **lostmodeenabled**: 
-* **modelname**: 
-* **passwordenabled**: 
-* **recoverytoken**: 
-* **serialnumber**: 
-* **supervised**: 
-
 
 ```json
 HTTP/1.1 200 OK
@@ -65,12 +69,8 @@ Content-Type: application/json
 ```
 
 
-
-
-
-
 ## Device Info
-Returns detailed information about the device.
+Returns detailed information about a device.
 
 ### Device Info Request
 
@@ -78,7 +78,7 @@ Returns detailed information about the device.
 * **clientid**: 
 * **imei**: 
 * **serialnumber**: 
-* **token**: 
+* **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
 POST /ccrest/publicapi/v2/device/info HTTP/1.1
@@ -163,7 +163,7 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 #### Parameters
 * **clientid**: 
 * **message**: 
-* **token**: 
+* **token**: access token obtained during [authentication](/en/latest/auth)
 
 #### Enable Lost Mode Request
 
@@ -197,7 +197,7 @@ Content-Type: application/json
 
 #### Parameters
 * **clientid**: 
-* **token**: 
+* **token**: access token obtained during [authentication](/en/latest/auth)
 
 #### Disable Lost Mode Request
 
@@ -226,14 +226,14 @@ Content-Type: application/json
 }
 ```
 
-## Trigger Location Retrieval
+## Location
 The retrieval of the device location can be triggered. Fetching the latest retrieved device location can be done using the [device status](#device-info) request.
 
 ### Trigger Location Retrieval Request
 
 ### Parameters
 * **clientid**: 
-* **token**: 
+* **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
 POST /ccrest/publicapi/v2/device/requestlocation HTTP/1.1

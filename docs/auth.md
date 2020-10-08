@@ -9,8 +9,8 @@ A user token can only be used for managing devices of the authenticated user. An
 ### Authentication Request
 
 #### Parameters
-* **type**: is always "basic"
-* **usertype**: "user" for user authentication or "admin" for an admin authentication
+* **type**: is always *basic*
+* **usertype**: *user* for user authentication or *admin* for an admin authentication
 * **username**: the Cortado MDM user/admin e-mail address
 * **password**: the Cortado MDM password of the admin/user
 * **mtcid**: the unique id of your Cortado MDM tenant (required for admin authentication request only)
@@ -31,6 +31,13 @@ Content-Type: application/json
 ### Authentication Response
 
 The server will **always respond with a 200 OK** HTTP status. The *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
+
+#### Fields
+* **errorcode**: an error code, if *success* is *false*.
+* **errormessage**: an error message, if *success* is *false*.
+* **success**: is *true*, if the request is successfull. Otherwise *false*.
+* **tokenstatus**: empty, if token is still valid for use. *ExpiresSoon*, if token should be refreshed. *Expired*, if token has expired and a new token needs to be requested.
+* **token**: access token, if *success* is *true*.
 
 ```json
 HTTP/1.1 200 OK
