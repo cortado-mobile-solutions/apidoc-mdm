@@ -21,10 +21,10 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "type": "basic",
-    "usertype": "user|admin",
-    "username": "",
-    "password": ""
+    "type":"basic",
+    "usertype":"user|admin",
+    "username":"",
+    "password":""
 }
 ```
 
