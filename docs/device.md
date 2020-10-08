@@ -163,6 +163,9 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 #### Parameters
 * **clientid**: 
 * **message**: 
+* **phonenumber**: 
+* **footnote**: 
+* **password**: only for Android!
 * **token**: access token obtained during [authentication](/en/latest/auth)
 
 #### Enable Lost Mode Request
