@@ -23,9 +23,9 @@ Content-Type: application/json
 {
     "type":"basic",
     "usertype":"user|admin",
-    "username":"",
-    "password":"",
-    "mtcid":""
+    "username":"{username}",
+    "password":"{password}",
+    "mtcid":"{tenant id}"
 }
 ```
 
@@ -51,7 +51,7 @@ Content-Type: application/json
     "errormessage":null,
     "success":true,
     "tokenstatus":null,
-    "token":"token..."
+    "token":"{access token}"
 }
 ```
 

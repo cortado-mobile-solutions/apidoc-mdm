@@ -5,23 +5,24 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 
 ## Device Fields
 
-| Field | Example Value | Description |
-| ------------ | ------------- | ------------ |
-| **clientid** | | unique device identifier |
-| **imei** | | device IMEI |
-| **serialnumber** | | device serial number |
-| **modelname** | | device model name |
-| **displayname** | | device display name |
-| **lastcontact** | | date and time of last contact / check-in of the device |
-| **location** | | last known location incl. timestamp of the device |
-| **lostmodeenabled** | | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
-| **passwordenabled** | | |
-| **recoverytoken** | | |
-| **supervised** | | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
-| **androidforworktype** |  |  |
-| **enrollmenttype** | |  |
-| **managed** | | |
-| **type** | | |
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | unique device identifier |
+| **imei** | device IMEI |
+| **serialnumber** | device serial number |
+| **modelname** | device model name |
+| **displayname** | device display name |
+| **lastcontact** | date and time of last contact / check-in of the device |
+| **location** | last known location incl. timestamp of the device |
+| **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
+| **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
+| **recoverytoken** | if the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
+| **supervised** | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
+| **androidforworktype**  | Android device management mode. *2*: Work Profile, *3*: Fully Managed |
+| **enrollmenttype** | shows the enrollment type of the device. Values can be *0*: Zero-Touch (Android), *1*: Device Enrollment Program (iOS/ipadOS), *2*: User Enrollment (iOS/ipadOS), *3*: Samsung Knox Mobile Enrollment.
+If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
+| **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
+| **type** | indicates the operating system of the device. *2*: iOS/ipadOS, *4*: Android, *7*: macOS |
 
 
 ## List Devices
@@ -37,7 +38,7 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "token":""
+    "token":"{access token}"
 }
 ```
 
@@ -86,8 +87,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
-    "token":""
+    "clientid":"{client id}",
+    "token":"{access token}"
 }
 ```
 
@@ -175,12 +176,12 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
-    "message":"Message shown on the device lock screen",
-    "phonenumber":"Message shown on the device lock screen",
-    "footnote":"Message shown on the device lock screen",
-    "password":"Message shown on the device lock screen",
-    "token":""
+    "clientid":"{client id}",
+    "message":"Message shown on the device lock screen.",
+    "phonenumber":"0123456789",
+    "footnote":"Footnote shown at the bottom of the lock screen.",
+    "password":"1234",
+    "token":"{access token}"
 }
 ```
 
@@ -211,8 +212,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
-    "token":""
+    "clientid":"{client id}",
+    "token":"{access token}"
 }
 ```
 
@@ -244,8 +245,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
-    "token":""
+    "clientid":"{client id}",
+    "token":"{access token}"
 }
 ```
 
