@@ -18,10 +18,10 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 | **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
 | **recoverytoken** | if the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
 | **supervised** | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
-| **androidforworktype**  | Android device management mode. *2*: Work Profile, *3*: Fully Managed |
-| **enrollmenttype** | shows the enrollment type of the device. Values can be *0*: Zero-Touch (Android), *1*: Device Enrollment Program (iOS/ipadOS), *2*: User Enrollment (iOS/ipadOS), *3*: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
+| **androidforworktype**  | Android device management mode. 2: Work Profile, 3: Fully Managed |
+| **enrollmenttype** | shows the enrollment type of the device. Values can be 0: Zero-Touch (Android), 1: Device Enrollment Program (iOS/ipadOS), 2: User Enrollment (iOS/ipadOS), 3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
 | **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
-| **type** | indicates the operating system of the device. *2*: iOS/ipadOS, *4*: Android, *7*: macOS |
+| **type** | indicates the operating system of the device. 2: iOS/ipadOS, 4: Android, 7: macOS |
 
 
 ## List Devices
@@ -132,12 +132,12 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 #### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
-| Field | Example Value | Description |
-| ------------ | ------------- | ------------ |
-| **message** | | message which is shown on the lockscreen of the device, if the lost mode was enabled. |
-| **phonenumber** | | Phone number **(Android only)**|
-| **footnote** | | footnote on the bottom of the lockscreen, if the lost mode was enabled. |
-| **password** | | new passcode that will be set for the device to unlock **(Android only)** |
+| Field | Description |
+| ------------ | ------------ |
+| **message** | message which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **phonenumber** | Phone number (Android only)|
+| **footnote** | footnote on the bottom of the lockscreen, if the lost mode was enabled. |
+| **password** | new passcode that will be set for the device to unlock (Android only) |
 
 #### Enable Lost Mode Request
 
