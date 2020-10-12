@@ -8,7 +8,7 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 | Field | Description |
 | ------------ | ------------ |
 | **clientid** | unique device identifier |
-| **imei** | device IMEI |
+| **imei** | device IMEI (if device has a SIM card inserted) |
 | **serialnumber** | device serial number |
 | **modelname** | device model name |
 | **displayname** | device display name |
@@ -55,7 +55,7 @@ Content-Type: application/json
     "devices":
         [
             {
-                "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
+                "clientid":"6f53a61b42754fd790cfdf12dfa5ab45",
                 "displayname":"My iPad",
                 "imei":null,
                 "lastcontact":"\/Date(1675991537000)\/",
@@ -64,7 +64,7 @@ Content-Type: application/json
                 "modelname":"Apple iPad Air 2, Space Gray (MGL12FD)",
                 "passwordenabled":false,
                 "recoverytoken":null,
-                "serialnumber":"DMPERB4G5VJ",
+                "serialnumber":"DMPEEB445VJ",
                 "supervised":true
             }
         ]
@@ -104,36 +104,8 @@ Content-Type: application/json
     "tokenstatus":null,
     "deviceinfo":
         {
-            "actions":
-                {
-                    "disablelostmode":
-                        {
-                            "status":0,
-                            "visible":false
-                        },
-                    "enablelostmode":
-                        {"
-                            status":0,
-                            "visible":true
-                        },
-                    "lockscreen":
-                        {
-                            "status":0,
-                            "visible":true
-                        },
-                    "requestlocation":
-                        {
-                            "status":0,
-                            "visible":false
-                        },
-                    "wipefull":
-                        {
-                            "status":0,
-                            "visible":true
-                        }
-                },
             "androidforworktype":3,
-            "clientid":"CIDWMD501DA0947CA9E14F35B0",
+            "clientid":"CIBWMD901DA0947CA9E14F35B0",
             "displayname":"P00A",
             "enrollmenttype":null,
             "imei":null,
