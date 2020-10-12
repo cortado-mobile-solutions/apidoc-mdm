@@ -1,5 +1,7 @@
 # Overview
-Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API. 
+Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
+
+**Use the access token obtained as described [here](auth.md) on every request.**
 
 ## Device Fields
 
