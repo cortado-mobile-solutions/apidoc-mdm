@@ -148,9 +148,9 @@ Content-Type: application/json
 
 {
     "clientid":"{client id}",
-    "message":"Message shown on the device lock screen.",
+    "message":"Please call the following number for unlock instructions.",
     "phonenumber":"0123456789",
-    "footnote":"Footnote shown at the bottom of the lock screen.",
+    "footnote":"This device is managed by Cortado.",
     "password":"1234",
     "token":"{access token}"
 }
