@@ -29,7 +29,7 @@ Retrieve a list of managed devices and basic details about the device status. Th
 * **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
-POST /ccrest/publicapi/v2/device/list HTTP/1.1
+POST /api/v2/device/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -81,7 +81,7 @@ Returns detailed information about a device.
 * **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
-POST /ccrest/publicapi/v2/device/info HTTP/1.1
+POST /api/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -171,7 +171,7 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 #### Enable Lost Mode Request
 
 ```json
-POST /ccrest/publicapi/v2/device/enablelostmode HTTP/1.1
+POST /api/v2/device/enablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -205,7 +205,7 @@ Content-Type: application/json
 #### Disable Lost Mode Request
 
 ```json
-POST /ccrest/publicapi/v2/device/disablelostmode HTTP/1.1
+POST /api/v2/device/disablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -239,7 +239,7 @@ The retrieval of the device location can be triggered. Fetching the latest retri
 * **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
-POST /ccrest/publicapi/v2/device/requestlocation HTTP/1.1
+POST /api/v2/device/requestlocation HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
