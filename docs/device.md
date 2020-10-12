@@ -1,32 +1,33 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API. 
 
-#### Device Fields
-* **clientid**: the device identifier
-* **imei**: the device IMEI
-* **serialnumber**: the device serial number
-* **modelname**: device model information
-* **displayname**: display name of the device
-* **lastcontact**: last contact / check-in of the device with the MDM
-* **location**: contains last known location of the device
-* **lostmodeenabled**: is *true*, if lost the lost-mode is enabled. Otherwise false
-* **passwordenabled**: 
-* **recoverytoken**: 
-* **supervised**: 
+## Device Fields
 
-* **androidforworktype**: 3
-* **enrollmenttype**: null
-* **managed**: true
-* **type**: 4
+| Field | Example Value | Description |
+| ------------ | ------------- | ------------ |
+| **clientid** | | unique device identifier |
+| **imei** | | device IMEI |
+| **serialnumber** | | device serial number |
+| **modelname** | | device model name |
+| **displayname** | | device display name |
+| **lastcontact** | | date and time of last contact / check-in of the device |
+| **location** | | last known location incl. timestamp of the device |
+| **lostmodeenabled** | | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
+| **passwordenabled** | | |
+| **recoverytoken** | | |
+| **supervised** | | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
+| **androidforworktype** |  |  |
+| **enrollmenttype** | |  |
+| **managed** | | |
+| **type** | | |
 
 
 ## List Devices
-Retrieve a list of managed devices and basic details about the device status. The response lists all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
+Retrieve a list of all managed devices and basic details about the device status. The response contains an array of all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
 
 ### List Devices Request
 
 #### Parameters
-* **token**: access token obtained during [authentication](/en/latest/auth)
 
 ```json
 POST /api/v2/device/list HTTP/1.1
@@ -75,10 +76,7 @@ Returns detailed information about a device.
 ### Device Info Request
 
 ### Parameters
-* **clientid**: 
-* **imei**: 
-* **serialnumber**: 
-* **token**: access token obtained during [authentication](/en/latest/auth)
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 ```json
 POST /api/v2/device/info HTTP/1.1
@@ -87,8 +85,6 @@ Content-Type: application/json
 
 {
     "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
-    "imei":"",
-    "serialnumber":"",
     "token":""
 }
 ```
@@ -157,16 +153,17 @@ Content-Type: application/json
 ## Lost Mode
 Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved.
 
-
 ### Enable Lost Mode
 
 #### Parameters
-* **clientid**: 
-* **message**: 
-* **phonenumber**: 
-* **footnote**: 
-* **password**: only for Android!
-* **token**: access token obtained during [authentication](/en/latest/auth)
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
+
+| Field | Example Value | Description |
+| ------------ | ------------- | ------------ |
+| **message** | | message which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **phonenumber** | | Phone number **(Android only)**|
+| **footnote** | | footnote on the bottom of the lockscreen, if the lost mode was enabled. |
+| **password** | | new passcode that will be set for the device to unlock **(Android only)** |
 
 #### Enable Lost Mode Request
 
@@ -178,6 +175,9 @@ Content-Type: application/json
 {
     "clientid":"6f53a61b42764fd690cfdf12dfa5ab45",
     "message":"Message shown on the device lock screen",
+    "phonenumber":"Message shown on the device lock screen",
+    "footnote":"Message shown on the device lock screen",
+    "password":"Message shown on the device lock screen",
     "token":""
 }
 ```
@@ -199,8 +199,7 @@ Content-Type: application/json
 ### Disable Lost Mode
 
 #### Parameters
-* **clientid**: 
-* **token**: access token obtained during [authentication](/en/latest/auth)
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 #### Disable Lost Mode Request
 
@@ -235,8 +234,7 @@ The retrieval of the device location can be triggered. Fetching the latest retri
 ### Trigger Location Retrieval Request
 
 ### Parameters
-* **clientid**: 
-* **token**: access token obtained during [authentication](/en/latest/auth)
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 ```json
 POST /api/v2/device/requestlocation HTTP/1.1
