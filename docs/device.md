@@ -124,6 +124,80 @@ Content-Type: application/json
 ```
 
 
+## Lock Screen
+Locks the screen of the device.
+
+### Lock Screen Request
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
+
+| Field | Description |
+| ------------ | ------------ |
+| **message** | Optional message shown on the lockscreen (iOS only) |
+| **phonenumber** | Optional phone number shown on the lockscreen (iOS only)|
+
+
+```json
+POST /api/v2/device/lockscreen HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "clientid":"{client id}",
+    "token":"{access token}",
+    "message":"{message}",
+    "phonenumber":"{phonenumber}"
+}
+```
+
+### Lock Screen Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode":null,
+    "errormessage":null,
+    "success":true,
+    "tokenstatus":null
+}
+```
+
+## Wipe
+Wipes the device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device.
+
+### Wipe Request
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
+
+```json
+POST /api/v2/device/wipe HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "clientid":"{client id}",
+    "token":"{access token}"
+}
+```
+
+### Wipe Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode":null,
+    "errormessage":null,
+    "success":true,
+    "tokenstatus":null
+}
+```
+
+
+
 ## Lost Mode
 Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved.
 
