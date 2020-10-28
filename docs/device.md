@@ -1,9 +1,48 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
 
-**Use the access token obtained as described [here](auth.md) on every request.**
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to th request body. The request content type must be *application/json*.
+
+**Base API URL: https://go.mycortado.com/api/v2**
+
+### Example Request
+
+```json
+POST /api/v2/device/list HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "clientid": "{client_id}",
+    ... all other request parameters ...
+}
+```
+
+### Request Responses
+
+| HTTP Status | Description |
+| ------------ | ------------ |
+| 200 | Request successfull. The response body will contain optional device data. |
+| 401 | Authentication has failed. The access token was not passed or invalid. You need to refresh the access token first. |
+| 404 | The requested entity (e.g. device) was not found. A wrong identifier (e.g. clientid) was passed within the request. |
+
+
+```json
+POST /api/v2/device/list HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "clientid": "{client_id}",
+    ... all other request parameters ...
+}
+```
 
 ## Device Fields
+
+The following fields can be returned by the API containing information about the device.
 
 | Field | Description |
 | ------------ | ------------ |
@@ -25,6 +64,9 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 
 
 ## List Devices
+
+**
+
 Retrieve a list of all managed devices and basic details about the device status. The response contains an array of all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
 
 ### List Devices Request
@@ -32,7 +74,7 @@ Retrieve a list of all managed devices and basic details about the device status
 #### Parameters
 
 ```json
-POST /api/v2/device/list HTTP/1.1
+POST /api/v2 HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 

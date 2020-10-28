@@ -56,3 +56,18 @@ Content-Type: application/json
 ```
 
 The returned access *token* needs to be included in all subsequent calls, to authenticate with the API.
+
+
+## Token Renewal/Refresh
+
+If the server responds with **ExpiresSoon**, the current token can be used to request a new token. The server will respond with an Authentication Response.
+
+```json
+POST /api/v2/user/renewtoken HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{token}"
+}
+```
