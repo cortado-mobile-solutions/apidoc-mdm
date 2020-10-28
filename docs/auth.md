@@ -68,6 +68,6 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "token":"{token}"
+    "token":"{access token}"
 }
 ```

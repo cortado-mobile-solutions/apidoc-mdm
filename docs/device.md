@@ -125,8 +125,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"{client id}",
-    "token":"{access token}"
+    "token":"{access token}",
+    "clientid":"{client id}"
 }
 ```
 
@@ -183,8 +183,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"{client id}",
     "token":"{access token}",
+    "clientid":"{client id}",
     "message":"{message}",
     "phonenumber":"{phonenumber}"
 }
@@ -216,8 +216,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"{client id}",
-    "token":"{access token}"
+    "token":"{access token}",
+    "clientid":"{client id}"    
 }
 ```
 
@@ -260,12 +260,12 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
+    "token":"{access token}",
     "clientid":"{client id}",
     "message":"Please call the following number for unlock instructions.",
     "phonenumber":"0123456789",
     "footnote":"This device is managed by Cortado.",
-    "password":"1234",
-    "token":"{access token}"
+    "password":"1234"
 }
 ```
 
@@ -296,8 +296,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"{client id}",
-    "token":"{access token}"
+    "token":"{access token}",
+    "clientid":"{client id}"
 }
 ```
 
@@ -329,8 +329,8 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "clientid":"{client id}",
-    "token":"{access token}"
+    "token":"{access token}",
+    "clientid":"{client id}"
 }
 ```
 
