@@ -24,7 +24,7 @@ Content-Type: application/json
 | HTTP Status | Description |
 | ------------ | ------------ |
 | 200 | Request successfull. The response body will contain optional device data. |
-| 401 | Authentication has failed. The access token was not passed or invalid. You need to refresh the access token first. |
+| 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
 | 404 | The requested entity (e.g. device) was not found. A wrong identifier (e.g. clientid) was passed within the request. |
 
 
@@ -64,9 +64,6 @@ The following fields can be returned by the API containing information about the
 
 
 ## List Devices
-
-**
-
 Retrieve a list of all managed devices and basic details about the device status. The response contains an array of all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
 
 ### List Devices Request
