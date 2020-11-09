@@ -61,6 +61,7 @@ The following fields can be returned by the API containing information about the
 | **enrollmenttype** | shows the enrollment type of the device. Values can be 0: Zero-Touch (Android), 1: Device Enrollment Program (iOS/ipadOS), 2: User Enrollment (iOS/ipadOS), 3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
 | **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
 | **type** | indicates the operating system of the device. 2: iOS/ipadOS, 4: Android, 7: macOS |
+| **usersid** | the user id of the associated user (details on the user can be retrieved with a [user request](user.md)) |
 
 
 ## List Devices
