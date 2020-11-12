@@ -1,14 +1,14 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to th request body. The request content type must be *application/json*.
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
-**Base API URL: https://go.mycortado.com/api/v2**
+**Base API URL: https://go.mycortado.com/api/mdm/v2/device**
 
 ### Example Request
 
 ```json
-POST /api/v2/device/list HTTP/1.1
+POST /api/mdm/v2/device/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -19,26 +19,13 @@ Content-Type: application/json
 }
 ```
 
-### Request Responses
+### Example Response
 
 | HTTP Status | Description |
 | ------------ | ------------ |
 | 200 | Request successfull. The response body will contain optional device data. |
 | 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
 | 404 | The requested entity (e.g. device) was not found. A wrong identifier (e.g. clientid) was passed within the request. |
-
-
-```json
-POST /api/v2/device/list HTTP/1.1
-Host: go.mycortado.com
-Content-Type: application/json
-
-{
-    "token":"{access token}",
-    "clientid": "{client_id}",
-    ... all other request parameters ...
-}
-```
 
 ## Device Fields
 
@@ -72,7 +59,7 @@ Retrieve a list of all managed devices and basic details about the device status
 #### Parameters
 
 ```json
-POST /api/v2 HTTP/1.1
+POST /api/mdm/v2/device/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -121,7 +108,7 @@ Returns detailed information about a device.
 Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 ```json
-POST /api/v2/device/info HTTP/1.1
+POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -179,7 +166,7 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 
 ```json
-POST /api/v2/device/lockscreen HTTP/1.1
+POST /api/mdm/v2/device/lockscreen HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -212,7 +199,7 @@ Wipes the device. Depending on the current management mode, the device is reset 
 Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 ```json
-POST /api/v2/device/wipe HTTP/1.1
+POST /api/mdm/v2/device/wipe HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -256,7 +243,7 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device.
 #### Enable Lost Mode Request
 
 ```json
-POST /api/v2/device/enablelostmode HTTP/1.1
+POST /api/mdm/v2/device/enablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -292,7 +279,7 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device.
 #### Disable Lost Mode Request
 
 ```json
-POST /api/v2/device/disablelostmode HTTP/1.1
+POST /api/mdm/v2/device/disablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -325,7 +312,7 @@ The retrieval of the device location can be triggered. Fetching the latest retri
 Use either *clientid*, *imei* or *serialnumber* to specify the device.
 
 ```json
-POST /api/v2/device/requestlocation HTTP/1.1
+POST /api/mdm/v2/device/requestlocation HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 

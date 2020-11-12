@@ -16,7 +16,7 @@ An admin account is able to login to the Cortado MDM management console [here](h
 | **mtcid** |  | the id of your Cortado MDM tenant (required for admin authentication request only) |
 
 ```json
-POST /api/v2/user/login HTTP/1.1
+POST /api/mdm/v2/user/login HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -63,7 +63,7 @@ The returned access *token* needs to be included in all subsequent calls, to aut
 If the server responds with **ExpiresSoon**, the current token can be used to request a new token. The server will respond with an Authentication Response.
 
 ```json
-POST /api/v2/user/renewtoken HTTP/1.1
+POST /api/mdm/v2/user/renewtoken HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 

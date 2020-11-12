@@ -3,4 +3,5 @@ nav:
  - Home: index.md
  - Authentication: auth.md
  - Device: device.md
+ - User: user.md
 theme: readthedocs
