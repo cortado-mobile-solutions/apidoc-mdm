@@ -45,7 +45,7 @@ The following fields can be returned by the API containing information about the
 | **freestorageinfo** | free storage on the device |
 | **freestoragemb** | free storage on the device in megabytes |
 | **storagemb** | total storage of the device |
-s| **roaming** | indicates, if the device is roaming |
+| **roaming** | indicates, if the device is roaming |
 | **location** | last known location incl. timestamp of the device |
 | **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
 | **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
