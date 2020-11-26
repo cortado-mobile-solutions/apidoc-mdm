@@ -3,7 +3,7 @@ Users must be created with the Cortado MDM in order to be accessed via the API.
 
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
-**Base API URL: https://go.mycortado.com/api/v2/user**
+**Base API URL: https://go.mycortado.com/api/mdm/v2/user**
 
 ### Response
 
@@ -33,7 +33,7 @@ The following fields can be returned by the API containing information about the
 #### Parameters
 
 ```json
-POST /api/v2 HTTP/1.1
+POST /api/mdm/v2/user HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 

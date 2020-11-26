@@ -36,9 +36,16 @@ The following fields can be returned by the API containing information about the
 | **clientid** | unique device identifier |
 | **imei** | device IMEI (if device has a SIM card inserted) |
 | **serialnumber** | device serial number |
+| **mdmid** | On iOS supervised: UDID, on iOS User Enrolment: Enrollment ID, on Android: Android ID |
 | **modelname** | device model name |
 | **displayname** | device display name |
+| **osname** | display name of the installed OS |
 | **lastcontact** | date and time of last contact / check-in of the device |
+| **batterylevel** | battery level in percent |
+| **freestorageinfo** | free storage on the device |
+| **freestoragemb** | free storage on the device in megabytes |
+| **storagemb** | total storage of the device |
+s| **roaming** | indicates, if the device is roaming |
 | **location** | last known location incl. timestamp of the device |
 | **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
 | **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
@@ -83,16 +90,29 @@ Content-Type: application/json
         [
             {
                 "clientid":"6f53a61b42754fd790cfdf12dfa5ab45",
+                "batterylevel": 46,
                 "displayname":"My iPad",
+                "freestorageinfo": "876545678 Bytes / 5078745678 Bytes",
+                "freestoragemb": 51,
                 "imei":null,
                 "lastcontact":"\/Date(1675991537000)\/",
-                "location":null,
+                "managed": true,
+                "mdmid": "45668735478335735576873654",
+                "location": {
+                    "latitude": 58.5175248,
+                    "longitude": 12.4472308,
+                    "timestamp": "/Date(1606302297743)/"
+                },
                 "lostmodeenabled":false,
                 "modelname":"Apple iPad Air 2, Space Gray (MGL12FD)",
+                "osname": "ipadOS 14.2",
                 "passwordenabled":false,
                 "recoverytoken":null,
+                "roaming": false,
                 "serialnumber":"DMPEEB445VJ",
-                "supervised":true
+                "storagemb": 131072,
+                "supervised":true,
+                "usersid": "26a1ee91-1cbc-4757-85df-b3daf05055e1"
             }
         ]
     }
@@ -132,20 +152,32 @@ Content-Type: application/json
     "deviceinfo":
         {
             "androidforworktype":3,
+            "batterylevel": 46,
             "clientid":"CIBWMD901DA0947CA9E14F35B0",
             "displayname":"P00A",
             "enrollmenttype":null,
+            "freestorageinfo": "876545678 Bytes / 5078745678 Bytes",
+            "freestoragemb": 98598,
             "imei":null,
             "lastcontact":"\/Date(1601998193433)\/",
-            "location":null,
+            "location": {
+                "latitude": 58.5175248,
+                "longitude": 12.4472308,
+                "timestamp": "/Date(1606302297743)/"
+            },
             "lostmodeenabled":false,
             "managed":true,
+            "mdmid": "WMD501DF2B7C8E2B37B5AC8",
             "modelname":"Android P00A",
+            "osname": "Android 8.0.0",
             "passwordenabled":false,
-            "recoverytoken":null,
+            "recoverytoken":"DhRic2uTrm",
+            "roaming": false,
             "serialnumber":"H5NPCX088662FXW",
+            "storagemb": 0,
             "supervised":false,
-            "type":4
+            "type":4,
+            "usersid": "26a1ee91-1cbc-4757-85df-b3daf05055e1"
         }
 }
 ```
