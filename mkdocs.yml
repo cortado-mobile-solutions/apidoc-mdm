@@ -4,4 +4,5 @@ nav:
  - Authentication: auth.md
  - Device: device.md
  - User: user.md
+ - Apps: apps.md
 theme: readthedocs
