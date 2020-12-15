@@ -42,7 +42,11 @@ The following fields can be returned by the API containing information about the
 | **managed** | *true*, if the app is managed, otherwise *false* |
 | **mandatory** | *true*, if the app is mandatory, otherwise *false* |
 | **platform** | The platform of the app, "Apple" or "Android" |
-| **status** | The status of the app. Values can be\n0: We do not have a status for the app, so it is maybe not installed, or we cannot see this until someone tries to install.\n1: Installing or uninstalling the app. Status details maybe contains a constant for describing the state in detail.\n2: An error has occured. Status details maybe contains a constant for describing the state in detail.\n3: App is installed and managed. |
+| **status** | The status of the app. Values can be 
+0: We do not have a status for the app, so it is maybe not installed, or we cannot see this until someone tries to install.
+1: Installing or uninstalling the app. Status details maybe contains a constant for describing the state in detail.
+2: An error has occured. Status details maybe contains a constant for describing the state in detail.
+3: App is installed and managed. |
 | **statusdetails** | Details about the status of the app |
 
 **Important**
@@ -123,5 +127,136 @@ Content-Type: application/json
     "pagecount": 1,
     "pageindex": 1,
     "totalcount": 2
+}
+```
+
+## Get App Info
+Retrieve informations about an app that is assigned to a user or a device (with clientid parameter) or to a user (without clientid parameter). The response contains informations about the app assigned to the authenticated user and/or the device. Using an administrator access token to request the app info, the response will contain informations about the app of the managed tenant.
+
+### Get App Info Request
+
+#### Parameters
+The *appid* can be obtained through the Get App List request
+The *clientid* is optional
+
+```json
+POST /api/mdm/v2/app/info HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	"id": "{app_id}",
+    "clientid": "{client_id}",
+    "token":"{access token}"
+}
+```
+
+### Get App Info Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null,
+    "data": {
+        "actions": {
+            "install": {
+                "visible": false
+            },
+            "uninstall": {
+                "visible": false
+            }
+        },
+        "apptype": "AU",
+        "compatibletodevice": true,
+        "devicetype": "SmartphoneAndTablet",
+        "displayname": "OpenVPN Connect",
+        "id": "AU210",
+        "managed": true,
+        "mandatory": false,
+        "platform": "Apple",
+        "status": 1,
+        "statusdetails": "WaitingForDeviceReply"
+    }
+}
+```
+
+## Get App Image
+Retrieve the image of an app. The response is the image file.
+
+### Get App Image Request
+
+#### Parameters
+The *appid* can be obtained through the Get App List request
+
+```json
+POST /api/mdm/v2/app/info HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	"id": "{app_id}",
+    "token":"{access token}"
+}
+```
+
+This request is also available as a GET request. Just pass the json as a query parameters in this case.
+```
+(...)app/image?json={"id": "x","token": "x"}
+```
+
+### Get App Image Response
+The image file
+
+## Install App
+With this request an app installation for a device of a user can be triggered. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to every device.
+The request can be used for optional and mandatory apps.
+
+### Install App Request
+
+#### Parameters
+The *appid* can be obtained through the Get App List request
+
+```json
+POST /api/mdm/v2/app/info HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	"id": "{app_id}",
+    "clientid": "{client_id}",
+    "token":"{access token}"
+}
+```
+
+### Install App Success Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null
+}
+```
+
+### Install App Error Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": "02200021",
+    "errormessage": "App with id 'AU8' is not compatible to device with client id 'dc1685473f6448dfbb86dc8348cec2d7'.",
+    "success": false,
+    "tokenstatus": "ExpiresSoon"
 }
 ```
