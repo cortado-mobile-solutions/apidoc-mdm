@@ -33,20 +33,16 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **actions** | Clarify with mipas |
+| **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the app. Evaluating this part only makes sense if the clientid was send in the request. Clarify with mipas |
 | **apptype** | Clarify with mipas |
 | **compatibletodevice** | *true*, if the app is compatible to the optional passed device identified through the clientid, otherwise *false* |
-| **devicetype** | Indicated if the app is compatible to smartphones and/or tablets |
+| **devicetype** | Indicates if the app is compatible to smartphones and/or tablets |
 | **displayname** | The name of the app displayed in the management console |
 | **id** | The id of the app |
 | **managed** | *true*, if the app is managed, otherwise *false* |
 | **mandatory** | *true*, if the app is mandatory, otherwise *false* |
 | **platform** | The platform of the app, "Apple" or "Android" |
-| **status** | The status of the app. Values can be 
-0: We do not have a status for the app, so it is maybe not installed, or we cannot see this until someone tries to install.
-1: Installing or uninstalling the app. Status details maybe contains a constant for describing the state in detail.
-2: An error has occured. Status details maybe contains a constant for describing the state in detail.
-3: App is installed and managed. |
+| **status** | The status of the app. Values can be<br>0: We do not have a status for the app, so it is maybe not installed, or we cannot see this until someone tries to install.<br>1: Installing or uninstalling the app. Status details maybe contains a constant for describing the state in detail.<br>2: An error has occured. Status details maybe contains a constant for describing the state in detail.<br>3: App is installed and managed. |
 | **statusdetails** | Details about the status of the app |
 
 **Important**
@@ -194,7 +190,7 @@ Retrieve the image of an app. The response is the image file.
 The *appid* can be obtained through the Get App List request
 
 ```json
-POST /api/mdm/v2/app/info HTTP/1.1
+POST /api/mdm/v2/app/image HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -213,7 +209,7 @@ This request is also available as a GET request. Just pass the json as a query p
 The image file
 
 ## Install App
-With this request an app installation for a device of a user can be triggered. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to every device.
+With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device.
 The request can be used for optional and mandatory apps.
 
 ### Install App Request
@@ -222,7 +218,7 @@ The request can be used for optional and mandatory apps.
 The *appid* can be obtained through the Get App List request
 
 ```json
-POST /api/mdm/v2/app/info HTTP/1.1
+POST /api/mdm/v2/app/install HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -248,6 +244,55 @@ Content-Type: application/json
 ```
 
 ### Install App Error Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": "02200021",
+    "errormessage": "App with id 'AU8' is not compatible to device with client id 'dc1685473f6448dfbb86dc8348cec2d7'.",
+    "success": false,
+    "tokenstatus": "ExpiresSoon"
+}
+```
+
+## Uninstall App
+With this request an app uninstallation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the uninstallation . Using an administrator access token the app can be uninstalled from any device.
+The request can be used for optional and mandatory apps.
+
+### Uninstall App Request
+
+#### Parameters
+The *appid* can be obtained through the Get App List request
+
+```json
+POST /api/mdm/v2/app/uninstall HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	"id": "{app_id}",
+    "clientid": "{client_id}",
+    "token":"{access token}"
+}
+```
+
+### Uninstall App Success Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null
+}
+```
+
+### Uninstall App Error Response
 
 ```json
 HTTP/1.1 200 OK

@@ -5,4 +5,5 @@ nav:
  - Device: device.md
  - User: user.md
  - Apps: apps.md
+ - System: system.md
 theme: readthedocs

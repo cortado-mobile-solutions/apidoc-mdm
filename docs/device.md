@@ -367,3 +367,38 @@ Content-Type: application/json
     "tokenstatus":null
 }
 ```
+
+## Reset Passcode
+This will reset the passcode of a device. For Apple devices the passcode will be cleared and, depending on a possible device policy, a new one has to be set. For Android devices the new password has to get send with the request.
+
+### Reset Passcode Request
+
+### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device.
+The password parameter is mandatory and only evaluated for Android devices.
+
+```json
+POST /api/mdm/v2/device/resetpasscode HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "password":"{new password}",	
+    "clientid":"{client id}"
+}
+```
+
+### Reset Passcode Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null
+}
+```

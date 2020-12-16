@@ -28,12 +28,14 @@ The following fields can be returned by the API containing information about the
 | **phone** | phone number of the user |
 | **sid** | user id |
 
-### User Info
+## User Info
+
+### User Info Request
 
 #### Parameters
 
 ```json
-POST /api/mdm/v2/user HTTP/1.1
+POST /api/mdm/v2/user/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -64,5 +66,214 @@ Content-Type: application/json
         "phone": "123456789",
         "sid": "2640ee91-1cbc-4647-85df-a3daff5055e1"
     }
-    }
+}
 ```
+
+## User Change Password
+With this request the password of a user can be changed. This request is only available for MTC(Cloud) installations
+
+### User Change Password Request
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/changepassword HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "token": "{access token}",
+   "confirmnewpassword": "{new password}",
+   "newpassword": "{new password}",
+   "oldpassword": "{old password}"
+}
+```
+
+### User Change Password Response
+-
+
+## User Forgot Password
+This request will trigger the forgot password email. It is only available for MTC(Cloud) installations
+
+### User Forgot Password Request
+
+#### Parameters
+Valid user types are: user, admin
+
+```json
+POST /api/mdm/v2/user/forgotpassword HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "emailaddress": "{email address}",
+   "usertype": "{user type}"
+}
+```
+
+### User Forgot Password Response
+The response will always be successful, only because of infrastructural problems (network, database etc.) an error code will be returned
+
+## User Reset Password
+With this request the password of a user can be reset. It is only available for MTC(Cloud) installations
+
+### User Reset Password Request
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/resetpassword HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "token": "{access token}",
+   "confirmnewpassword": "{new password}",
+   "newpassword": "{new password}"
+}
+```
+
+### User Reset Password Success Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "errorcode": null,
+   "errormessage": null,
+   "success": true,
+   "tokenstatus": null
+}
+```
+
+### User Reset Password Error Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "errorcode": "03100004",
+   "errormessage": "Invalid token.",
+   "success": false,
+   "tokenstatus": null
+}
+```
+
+## User Reset Password Info
+With this request informations for a rest password token, like the display name of the user, can be retrieved. These informations will be in the response section *userresetpasswordinfo*. It is only available for MTC(Cloud) installations
+
+### User Reset Password Info Request
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/resetpasswordinfo HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "token": "{access token}"
+}
+```
+
+### User Reset Password Info Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "errorcode": null,
+   "errormessage": null,
+   "success": true,
+   "tokenstatus": null,
+   "userresetpasswordinfo": {
+      "displayname": "Mirko.Paschke@cortado.com"
+   }
+}
+```
+
+## User MDM Profile
+With this request a users mdm profile can be downloaded. This request is only avilable for users, not admins, and the response will be a file stream
+When using Apple BYOD make sure that the user has a *Managed Apple ID* through the user info request first.
+
+### User MDM Profile Request for Apple iOS/iPadOS BYOD
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/mdmprofile HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "mdmtype": "apple",
+   "byod": "true",
+   "token": "{access token}"   
+}
+```
+
+### User MDM Profile Request for Apple macOS BYOD
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/mdmprofile HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "mdmtype": "apple",
+   "mac": "true",   
+   "byod": "true",
+   "token": "{access token}"   
+}
+```
+
+### User MDM Profile Request for Android
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/mdmprofile HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "mdmtype": "android",
+   "token": "{access token}"   
+}
+```
+
+This request is also available as a GET request. Just pass the json as a query parameters in this case.
+To also show a web page use "html" with "true". If it does not work maybe you need to url encode the stuff, but maybe your browser will do it.
+```
+(...)user/mdmprofile?json={"mdmtype":"apple","byod":"true","html":"true","token":"x"}
+```
+
+### User MDM Profile Response
+File stream
+
+## User Set SharePoint Credentials
+With this request the SharePoint Credentials of a user can be set. This request is only avilable for users, not admins
+
+### User Set SharePoint Credentials Request
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/setsharepointcredentials HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "token": "{access token}",
+   "password": "{new password}",
+   "username": "{user name}"   
+}
+```
+
+### User Set SharePoint Credentials Response
+-
