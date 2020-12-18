@@ -13,7 +13,7 @@ An admin account is able to login to the Cortado MDM management console [here](h
 | **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
 | **username** |  | the Cortado MDM user/admin e-mail address |
 | **password** |  | the Cortado MDM password of the admin/user |
-| **mtcid** |  | the id of your Cortado MDM tenant (required for admin authentication request only) |
+| **mtcid** |  | the id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account or an admin account with access to multiple tenants |
 
 ```json
 POST /api/mdm/v2/user/login HTTP/1.1

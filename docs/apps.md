@@ -54,7 +54,7 @@ Retrieve a list of all apps assigned to a user and a optional device. The respon
 ### Get App List Request
 
 #### Parameters
-The *clientid* is optional
+The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
 
 ```json
 POST /api/mdm/v2/app/list HTTP/1.1
@@ -133,7 +133,7 @@ Retrieve informations about an app that is assigned to a user or a device (with 
 
 #### Parameters
 The *appid* can be obtained through the Get App List request
-The *clientid* is optional
+The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
 
 ```json
 POST /api/mdm/v2/app/info HTTP/1.1
@@ -216,6 +216,7 @@ The request can be used for optional and mandatory apps.
 
 #### Parameters
 The *appid* can be obtained through the Get App List request
+The *clientid* can be retrieved through the device list request as described [here](device.md)
 
 ```json
 POST /api/mdm/v2/app/install HTTP/1.1
@@ -265,6 +266,7 @@ The request can be used for optional and mandatory apps.
 
 #### Parameters
 The *appid* can be obtained through the Get App List request
+The *clientid* can be retrieved through the device list request as described [here](device.md)
 
 ```json
 POST /api/mdm/v2/app/uninstall HTTP/1.1

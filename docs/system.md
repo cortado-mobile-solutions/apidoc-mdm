@@ -23,18 +23,22 @@ Content-Type: application/json
 | 200 | Request successfull. The response body will contain optional data about the system. |
 | 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
 
-## App Fields
+## System Fields
 
-The following fields can be returned by the API containing information about the apps.
+The following fields can be returned by the API containing information about the system.
 
 | Field | Description |
 | ------------ | ------------ |
 | **mtcenabled** | *true*, if MTC (Multi Tenacy Mode) is enabled, otherwise *false* |
+| **showairprint** | *true*, if the airprint section is displayed in the user portal, otherwise *false* |
+| **showapps** | *true*, if the apps section is displayed in the user portal, otherwise *false* |
+| **showdeviceenrollment** | *true*, if the device enrollment section is displayed in the user portal, otherwise *false* |
+| **showsharepoint** | *true*, if the sharepoint section is displayed in the user portal, otherwise *false* |
 
 ## System Info
 Retrieve informations about the system. This request does not need any authentication and the response will contain informations about the system in the *systeminfo* section.
 
-### System Info Request (needs clarification)
+### System Info Request
 
 #### Parameters
 

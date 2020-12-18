@@ -126,6 +126,7 @@ Returns detailed information about a device.
 
 ### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device.
+The *clientid* can be retrieved through the list devices request
 
 ```json
 POST /api/mdm/v2/device/info HTTP/1.1
@@ -189,7 +190,7 @@ Locks the screen of the device.
 ### Lock Screen Request
 
 #### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 | Field | Description |
 | ------------ | ------------ |
@@ -228,7 +229,7 @@ Content-Type: application/json
 Wipes the device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device.
 
 ### Wipe Request
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ```json
 POST /api/mdm/v2/device/wipe HTTP/1.1
@@ -263,7 +264,7 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 ### Enable Lost Mode
 
 #### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 | Field | Description |
 | ------------ | ------------ |
@@ -306,7 +307,7 @@ Content-Type: application/json
 ### Disable Lost Mode
 
 #### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 #### Disable Lost Mode Request
 
@@ -341,7 +342,7 @@ The retrieval of the device location can be triggered. Fetching the latest retri
 ### Trigger Location Retrieval Request
 
 ### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ```json
 POST /api/mdm/v2/device/requestlocation HTTP/1.1
@@ -374,8 +375,8 @@ This will reset the passcode of a device. For Apple devices the passcode will be
 ### Reset Passcode Request
 
 ### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
-The password parameter is mandatory and only evaluated for Android devices.
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+The password parameter is only for Android devices mandatory and only then evaluated.
 
 ```json
 POST /api/mdm/v2/device/resetpasscode HTTP/1.1

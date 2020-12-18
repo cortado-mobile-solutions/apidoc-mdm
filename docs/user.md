@@ -5,7 +5,20 @@ Use the access token obtained as described [here](auth.md) on every request as t
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/user**
 
-### Response
+### Example Request
+
+```json
+POST /api/mdm/v2/app/example HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    ... all other request parameters ...
+}
+```
+
+### Example Response
 
 | HTTP Status | Description |
 | ------------ | ------------ |
@@ -29,10 +42,12 @@ The following fields can be returned by the API containing information about the
 | **sid** | user id |
 
 ## User Info
+With this request informations about a user can be retrieved by sending the access token. An admin can request the informations of any user by additionally sending the users sid.
 
 ### User Info Request
 
 #### Parameters
+The sid parameter is only used if the request is send by an admin. It can be retrieved through the device list request as described [here](device.md)
 
 ```json
 POST /api/mdm/v2/user/info HTTP/1.1
@@ -90,10 +105,22 @@ Content-Type: application/json
 ```
 
 ### User Change Password Response
--
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "errorcode": null,
+   "errormessage": null,
+   "success": true,
+   "tokenstatus": null
+}
+```
 
 ## User Forgot Password
 This request will trigger the forgot password email. It is only available for MTC(Cloud) installations
+The email will contain a link to reset the password which also contains a reset password token which has to be used in the follow-up request to get the user rest password info or to reset the password
 
 ### User Forgot Password Request
 
@@ -113,6 +140,7 @@ Content-Type: application/json
 
 ### User Forgot Password Response
 The response will always be successful, only because of infrastructural problems (network, database etc.) an error code will be returned
+If the user exists an email, with the necessary informations, will get send to the user.
 
 ## User Reset Password
 With this request the password of a user can be reset. It is only available for MTC(Cloud) installations
@@ -120,6 +148,7 @@ With this request the password of a user can be reset. It is only available for 
 ### User Reset Password Request
 
 #### Parameters
+reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
 ```json
 POST /api/mdm/v2/user/resetpassword HTTP/1.1
@@ -127,7 +156,7 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-   "token": "{access token}",
+   "token": "{reset password token}",
    "confirmnewpassword": "{new password}",
    "newpassword": "{new password}"
 }
@@ -162,11 +191,12 @@ Content-Type: application/json
 ```
 
 ## User Reset Password Info
-With this request informations for a rest password token, like the display name of the user, can be retrieved. These informations will be in the response section *userresetpasswordinfo*. It is only available for MTC(Cloud) installations
+With this request informations for a reset password token, like the display name of the user, can be retrieved. These informations will be in the response section *userresetpasswordinfo*. It is only available for MTC(Cloud) installations
 
 ### User Reset Password Info Request
 
 #### Parameters
+reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
 ```json
 POST /api/mdm/v2/user/resetpasswordinfo HTTP/1.1
@@ -174,7 +204,7 @@ Host: go.mycortado.com
 Content-Type: application/json
 
 {
-   "token": "{access token}"
+   "token": "{reset password token}"
 }
 ```
 
@@ -190,7 +220,7 @@ Content-Type: application/json
    "success": true,
    "tokenstatus": null,
    "userresetpasswordinfo": {
-      "displayname": "Mirko.Paschke@cortado.com"
+      "displayname": "..."
    }
 }
 ```
@@ -276,4 +306,15 @@ Content-Type: application/json
 ```
 
 ### User Set SharePoint Credentials Response
--
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "errorcode": null,
+   "errormessage": null,
+   "success": true,
+   "tokenstatus": null
+}
+```
