@@ -33,28 +33,29 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **clientid** | unique device identifier |
-| **imei** | device IMEI (if device has a SIM card inserted) |
-| **serialnumber** | device serial number |
-| **mdmid** | On iOS supervised: UDID, on iOS User Enrolment: Enrollment ID, on Android: Android ID |
-| **modelname** | device model name |
-| **displayname** | device display name |
-| **osname** | display name of the installed OS |
-| **lastcontact** | date and time of last contact / check-in of the device |
+| **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the device. |
+| **androidforworktype**  | Android device management mode.<br>2: Work Profile,<br>3: Fully Managed |
 | **batterylevel** | battery level in percent |
+| **clientid** | unique device identifier |
+| **displayname** | device display name |
+| **enrollmenttype** | shows the enrollment type of the device. Values can be<br>0: Zero-Touch (Android)<br>1: Device Enrollment Program (iOS/ipadOS)<br>2: User Enrollment (iOS/ipadOS)<br>3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
 | **freestorageinfo** | free storage on the device |
 | **freestoragemb** | free storage on the device in megabytes |
-| **storagemb** | total storage of the device |
-| **roaming** | indicates, if the device is roaming |
+| **imei** | device IMEI (if device has a SIM card inserted) |
+| **lastcontact** | date and time of last contact / check-in of the device |
 | **location** | last known location incl. timestamp of the device |
 | **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
+| **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
+| **mdmid** | On iOS supervised: UDID, on iOS User Enrolment: Enrollment ID, on Android: Android ID |
+| **modelname** | device model name |
+| **osname** | display name of the installed OS |
 | **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
 | **recoverytoken** | if the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
+| **roaming** | indicates, if the device is roaming |
+| **serialnumber** | device serial number |
+| **storagemb** | total storage of the device |
 | **supervised** | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
-| **androidforworktype**  | Android device management mode. 2: Work Profile, 3: Fully Managed |
-| **enrollmenttype** | shows the enrollment type of the device. Values can be 0: Zero-Touch (Android), 1: Device Enrollment Program (iOS/ipadOS), 2: User Enrollment (iOS/ipadOS), 3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
-| **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
-| **type** | indicates the operating system of the device. 2: iOS/ipadOS, 4: Android, 7: macOS |
+| **type** | indicates the operating system of the device.<br>2: iOS/ipadOS<br>4: Android<br>7: macOS |
 | **usersid** | the user id of the associated user (details on the user can be retrieved with a [user request](user.md)) |
 
 
@@ -82,40 +83,67 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "errorcode":null,
-    "errormessage":null,
-    "success":true,
-    "tokenstatus":null,
-    "devices":
-        [
-            {
-                "clientid":"6f53a61b42754fd790cfdf12dfa5ab45",
-                "batterylevel": 46,
-                "displayname":"My iPad",
-                "freestorageinfo": "876545678 Bytes / 5078745678 Bytes",
-                "freestoragemb": 51,
-                "imei":null,
-                "lastcontact":"\/Date(1675991537000)\/",
-                "managed": true,
-                "mdmid": "45668735478335735576873654",
-                "location": {
-                    "latitude": 58.5175248,
-                    "longitude": 12.4472308,
-                    "timestamp": "/Date(1606302297743)/"
-                },
-                "lostmodeenabled":false,
-                "modelname":"Apple iPad Air 2, Space Gray (MGL12FD)",
-                "osname": "ipadOS 14.2",
-                "passwordenabled":false,
-                "recoverytoken":null,
-                "roaming": false,
-                "serialnumber":"DMPEEB445VJ",
-                "storagemb": 131072,
-                "supervised":true,
-                "usersid": "26a1ee91-1cbc-4757-85df-b3daf05055e1"
+   "errorcode": null,
+   "errormessage": null,
+   "success": true,
+   "tokenstatus": null,
+   "data": [
+      {
+         "actions": {
+            "disablelostmode": {
+               "status": 0,
+               "visible": false
+            },
+            "enablelostmode": {
+               "status": 0,
+               "visible": true
+            },
+            "lockscreen": {
+               "status": 0,
+               "visible": true
+            },
+            "requestlocation": {
+               "status": 0,
+               "visible": false
+            },
+            "resetpasscode": {
+               "status": 0,
+               "visible": true
+            },
+            "wipefull": {
+               "status": 0,
+               "visible": true
             }
-        ]
-    }
+         },
+         "androidforworktype": 0,
+         "batterylevel": 95,
+         "clientid": "e60cf0e25e63430694441870c27a8b42",
+         "displayname": "iPhone",
+         "enrollmenttype": null,
+         "freestorageinfo": "52.2 GB / 64.0 GB - 81.55 %",
+         "freestoragemb": 53444,
+         "imei": "357351093108963",
+         "lastcontact": "/Date(1608564096937)/",
+         "location": null,
+         "lostmodeenabled": false,
+         "managed": true,
+         "mdmid": "00008020-001E04DA2284002E",
+         "modelname": "Apple iPhone XR, Blue (MRYA2ZD)",
+         "osname": "iOS 14.2",
+         "passwordenabled": true,
+         "recoverytoken": null,
+         "roaming": false,
+         "serialnumber": "F71XL2HZKXK7",
+         "storagemb": 65536,
+         "supervised": true,
+         "type": 2,
+         "usersid": "465874fd-28a6-4f0d-bc53-43df50552fe2"
+      }
+   ],
+   "pagecount": 1,
+   "pageindex": 1,
+   "totalcount": 1
+}
 ```
 
 
