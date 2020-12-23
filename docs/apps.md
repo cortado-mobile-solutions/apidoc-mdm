@@ -33,8 +33,8 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the app. Evaluating this part only makes sense if the clientid was send in the request. Clarify with mipas |
-| **apptype** | Clarify with mipas |
+| **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the app. Evaluating this part only makes sense if the clientid was send in the request. |
+| **apptype** | The type of the app. Possible values are<br>AU: App Url<br>EA: Enterprise App<br>MU: Multimedia Url  |
 | **compatibletodevice** | *true*, if the app is compatible to the optional passed device identified through the clientid, otherwise *false* |
 | **devicetype** | Indicates if the app is compatible to smartphones and/or tablets |
 | **displayname** | The name of the app displayed in the management console |
