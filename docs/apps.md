@@ -139,7 +139,7 @@ Retrieve informations about an app that is assigned to a user or a device (with 
 ### Get App Info Request
 
 #### Parameters
-The *id* of the app can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request<br>
 The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
 
 | Field | Description |
@@ -220,14 +220,14 @@ This request is also available as a GET request. Just pass the json as a query p
 The image file
 
 ## Install App
-With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device.
-The request can be used for optional and mandatory apps.
+With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device.<br>
+The request can be used for optional and mandatory apps.<br>
 Applications of the type "MU" are currently not supported by this request
 
 ### Install App Request
 
 #### Parameters
-The *id* of the app can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request<br>
 The *clientid* can be retrieved through the device list request as described [here](device.md)
 
 | Field | Description |
@@ -261,14 +261,14 @@ Content-Type: application/json
 ```
 
 ## Uninstall App
-With this request an app uninstallation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the uninstallation . Using an administrator access token the app can be uninstalled from any device.
-The request can be used for optional and mandatory apps.
+With this request an app uninstallation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the uninstallation . Using an administrator access token the app can be uninstalled from any device.<br>
+The request can be used for optional and mandatory apps.<br>
 Applications of the type "MU" are currently not supported by this request
 
 ### Uninstall App Request
 
 #### Parameters
-The *id* of the app can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request<br>
 The *clientid* can be retrieved through the device list request as described [here](device.md)
 
 | Field | Description |

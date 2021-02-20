@@ -323,7 +323,7 @@ Content-Type: application/json
 ```
 
 ## (Partial)Wipe
-(Partial)Wipes the user device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device. Using an administrator access token any device of the tenant can be wiped.
+(Partial)Wipes the user device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device. Using an administrator access token any device of the tenant can be wiped.<br>
 Sending the optional parameter *partial* with the value *true* a partial wipe will be, if possible, performed. This will only removed the mdm data on the device
 
 ### Wipe Request
@@ -369,7 +369,7 @@ Depending on the management mode of the device, the lost mode can be enabled on 
 ### Enable Lost Mode
 
 #### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
 Sending either the message and/or phonenumber parameter is mandatory
 
 | Field | Description |
@@ -481,7 +481,7 @@ This will reset the passcode of a device. For Apple devices the passcode will be
 ### Reset Passcode Request
 
 ### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
 The password parameter is only for Android devices mandatory and only then evaluated.
 
 | Field | Description |

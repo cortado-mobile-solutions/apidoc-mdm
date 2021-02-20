@@ -43,7 +43,7 @@ The following fields can be returned by the API containing information about the
 | **sid** | user id |
 
 ## User Info
-With this request informations about a user can be retrieved by sending the access token. An admin can request the informations of any user by additionally sending the users sid.
+With this request informations about a user can be retrieved by sending the access token. An admin can request the informations of any user by additionally sending the users sid.<br>
 When sending an admin access token and no sid parameter the user informations for the admin will be returned. The "enabled" response parameter will always be "false" in this case
 
 ### User Info Request
@@ -131,7 +131,7 @@ Content-Type: application/json
 ```
 
 ## User Forgot Password
-This request will trigger the forgot password email. It is only available for MTC(Cloud) installations
+This request will trigger the forgot password email. It is only available for MTC(Cloud) installations<br>
 The email will contain a link to reset the password which also contains a reset password token which has to be used in the follow-up request to get the user rest password info or to reset the password
 
 ### User Forgot Password Request
@@ -156,7 +156,7 @@ Content-Type: application/json
 ```
 
 ### User Forgot Password Response
-The response will always be successful, only because of infrastructural problems (network, database etc.) an error code will be returned
+The response will always be successful, only because of infrastructural problems (network, database etc.) an error code will be returned<br>
 If the user exists an email, with the necessary informations, will get send to the user.
 
 ## User Reset Password
@@ -234,7 +234,7 @@ Content-Type: application/json
 ```
 
 ## User MDM Profile
-With this request a users mdm profile can be downloaded. This request is only avilable for users, not admins, and the response will be a file stream
+With this request a users mdm profile can be downloaded. This request is only avilable for users, not admins, and the response will be a file stream<br>
 When using Apple BYOD make sure that the user has a *Managed Apple ID* through the user info request first.
 
 ### User MDM Profile Request
@@ -291,7 +291,7 @@ Content-Type: application/json
 }
 ```
 
-This request is also available as a GET request. Just pass the json as a query parameters in this case.
+This request is also available as a GET request. Just pass the json as a query parameters in this case.<br>
 To also show a web page use "html" with "true". If it does not work maybe you need to url encode the stuff, but maybe your browser will do it.
 ```
 (...)user/mdmprofile?json={"mdmtype":"apple","byod":"true","html":"true","token":"x"}
