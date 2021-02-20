@@ -1,4 +1,5 @@
 # Overview
+Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
 Use the access token obtained as described [here](auth.md) on every request where the json field *token* is required. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/system**
@@ -34,6 +35,7 @@ The following fields can be returned by the API containing information about the
 | **showapps** | *true*, if the apps section is displayed in the user portal, otherwise *false* |
 | **showdeviceenrollment** | *true*, if the device enrollment section is displayed in the user portal, otherwise *false* |
 | **showsharepoint** | *true*, if the sharepoint section is displayed in the user portal, otherwise *false* |
+| **wdienabled** | *true*, if the wdi client is enabled, otherwise *false* |
 
 ## System Info
 Retrieve informations about the system. This request does not need any authentication and the response will contain informations about the system in the *systeminfo* section.

@@ -1,11 +1,14 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*.
+Use either the clientid, imei or serialnumber of the device which can be retrieved through the device list request on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*
+All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/device**
 
-### Example Request
+### Example Request with clientid
 
 ```json
 POST /api/mdm/v2/device/list HTTP/1.1
@@ -15,6 +18,34 @@ Content-Type: application/json
 {
     "token":"{access token}",
     "clientid": "{client_id}",
+    ... all other request parameters ...
+}
+```
+
+### Example Request with imei
+
+```json
+POST /api/mdm/v2/device/list HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "imei": "{device_imei}",
+    ... all other request parameters ...
+}
+```
+
+### Example Request with serialnumber
+
+```json
+POST /api/mdm/v2/device/list HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "serialnumber": "{device_serialnumber}",
     ... all other request parameters ...
 }
 ```
@@ -33,7 +64,7 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the device. |
+| **actions** | This sections contains actions that can, or cannot, be carried out on the device.<br>When the status parameter is "1" the action is already pending.<br> The visible parameter indicated if the action is available and can be displayed |
 | **androidforworktype**  | Android device management mode.<br>2: Work Profile,<br>3: Fully Managed |
 | **batterylevel** | battery level in percent |
 | **clientid** | unique device identifier |
@@ -47,9 +78,11 @@ The following fields can be returned by the API containing information about the
 | **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
 | **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
 | **mdmid** | On iOS supervised: UDID, on iOS User Enrolment: Enrollment ID, on Android: Android ID |
+| **mdmprofileremoved** | *true* if the mdm profile was removed from the device |
 | **modelname** | device model name |
 | **osname** | display name of the installed OS |
-| **passwordenabled** | *true*, if the screen lock on the device is configured (Android only). |
+| **passcodecompliant** | *true*, id the device is compliant to the password policy, otherwise *false* |
+| **passwordenabled** | *true*, if the screen lock on the device is configured (Android only), otherwise *false* |
 | **recoverytoken** | if the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
 | **roaming** | indicates, if the device is roaming |
 | **serialnumber** | device serial number |
@@ -57,6 +90,7 @@ The following fields can be returned by the API containing information about the
 | **supervised** | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
 | **type** | indicates the operating system of the device.<br>2: iOS/ipadOS<br>4: Android<br>7: macOS |
 | **usersid** | the user id of the associated user (details on the user can be retrieved with a [user request](user.md)) |
+| **wiped** | *true* if the device was wiped, otherwise *false* |
 
 
 ## List Devices
@@ -113,7 +147,11 @@ Content-Type: application/json
             "wipefull": {
                "status": 0,
                "visible": true
-            }
+            },
+			"wipepartial": {
+			"status": 0,
+			"visible": false
+			}			
          },
          "androidforworktype": 0,
          "batterylevel": 95,
@@ -128,6 +166,7 @@ Content-Type: application/json
          "lostmodeenabled": false,
          "managed": true,
          "mdmid": "00008020-001E04DA2284002E",
+		 "mdmprofileremoved": false,
          "modelname": "Apple iPhone XR, Blue (MRYA2ZD)",
          "osname": "iOS 14.2",
          "passwordenabled": true,
@@ -137,7 +176,8 @@ Content-Type: application/json
          "storagemb": 65536,
          "supervised": true,
          "type": 2,
-         "usersid": "465874fd-28a6-4f0d-bc53-43df50552fe2"
+         "usersid": "465874fd-28a6-4f0d-bc53-43df50552fe2",
+		 "wiped": false
       }
    ],
    "pagecount": 1,
@@ -148,13 +188,12 @@ Content-Type: application/json
 
 
 ## Device Info
-Returns detailed information about a device.
+Returns detailed information about a user device. Using an administrator access token the device info of any device of the tenant can be retrieved.
 
 ### Device Info Request
 
 ### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device.
-The *clientid* can be retrieved through the list devices request
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ```json
 POST /api/mdm/v2/device/info HTTP/1.1
@@ -179,41 +218,69 @@ Content-Type: application/json
     "success":true,
     "tokenstatus":null,
     "deviceinfo":
-        {
-            "androidforworktype":3,
-            "batterylevel": 46,
-            "clientid":"CIBWMD901DA0947CA9E14F35B0",
-            "displayname":"P00A",
-            "enrollmenttype":null,
-            "freestorageinfo": "876545678 Bytes / 5078745678 Bytes",
-            "freestoragemb": 98598,
-            "imei":null,
-            "lastcontact":"\/Date(1601998193433)\/",
-            "location": {
-                "latitude": 58.5175248,
-                "longitude": 12.4472308,
-                "timestamp": "/Date(1606302297743)/"
+      {
+         "actions": {
+            "disablelostmode": {
+               "status": 0,
+               "visible": false
             },
-            "lostmodeenabled":false,
-            "managed":true,
-            "mdmid": "WMD501DF2B7C8E2B37B5AC8",
-            "modelname":"Android P00A",
-            "osname": "Android 8.0.0",
-            "passwordenabled":false,
-            "recoverytoken":"DhRic2uTrm",
-            "roaming": false,
-            "serialnumber":"H5NPCX088662FXW",
-            "storagemb": 0,
-            "supervised":false,
-            "type":4,
-            "usersid": "26a1ee91-1cbc-4757-85df-b3daf05055e1"
-        }
+            "enablelostmode": {
+               "status": 0,
+               "visible": true
+            },
+            "lockscreen": {
+               "status": 0,
+               "visible": true
+            },
+            "requestlocation": {
+               "status": 0,
+               "visible": false
+            },
+            "resetpasscode": {
+               "status": 0,
+               "visible": true
+            },
+            "wipefull": {
+               "status": 0,
+               "visible": true
+            },
+			"wipepartial": {
+			"status": 0,
+			"visible": false
+			}			
+         },
+         "androidforworktype": 0,
+         "batterylevel": 95,
+         "clientid": "e60cf0e25e63430694441870c27a8b42",
+         "displayname": "iPhone",
+         "enrollmenttype": null,
+         "freestorageinfo": "52.2 GB / 64.0 GB - 81.55 %",
+         "freestoragemb": 53444,
+         "imei": "357351093108963",
+         "lastcontact": "/Date(1608564096937)/",
+         "location": null,
+         "lostmodeenabled": false,
+         "managed": true,
+         "mdmid": "00008020-001E04DA2284002E",
+		 "mdmprofileremoved": false,
+         "modelname": "Apple iPhone XR, Blue (MRYA2ZD)",
+         "osname": "iOS 14.2",
+         "passwordenabled": true,
+         "recoverytoken": null,
+         "roaming": false,
+         "serialnumber": "F71XL2HZKXK7",
+         "storagemb": 65536,
+         "supervised": true,
+         "type": 2,
+         "usersid": "465874fd-28a6-4f0d-bc53-43df50552fe2",
+		 "wiped": false
+      }
 }
 ```
 
 
 ## Lock Screen
-Locks the screen of the device.
+Locks the screen of the user device. Using an administrator access token the screen of any device of the tenant can be locked.
 
 ### Lock Screen Request
 
@@ -224,6 +291,7 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 | ------------ | ------------ |
 | **message** | Optional message shown on the lockscreen (iOS only) |
 | **phonenumber** | Optional phone number shown on the lockscreen (iOS only)|
+| **macpin** | Optional 6-digit pin (macOS only)|
 
 
 ```json
@@ -235,7 +303,8 @@ Content-Type: application/json
     "token":"{access token}",
     "clientid":"{client id}",
     "message":"{message}",
-    "phonenumber":"{phonenumber}"
+    "phonenumber":"{phonenumber}",
+	"macpin":"{macpin}"
 }
 ```
 
@@ -253,11 +322,17 @@ Content-Type: application/json
 }
 ```
 
-## Wipe
-Wipes the device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device.
+## (Partial)Wipe
+(Partial)Wipes the user device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device. Using an administrator access token any device of the tenant can be wiped.
+Sending the optional parameter *partial* with the value *true* a partial wipe will be, if possible, performed. This will only removed the mdm data on the device
 
 ### Wipe Request
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+
+| Field | Description |
+| ------------ | ------------ |
+| **macpin** | Optional 6-digit pin (macOS, full wipe only)|
+| **partial** | Optional boolean parameter. Set to true to perform a partial wipe|
 
 ```json
 POST /api/mdm/v2/device/wipe HTTP/1.1
@@ -266,7 +341,9 @@ Content-Type: application/json
 
 {
     "token":"{access token}",
-    "clientid":"{client id}"    
+    "clientid":"{client id}",
+    "macpin":"{macpin}",
+    "partial":"true"
 }
 ```
 
@@ -287,17 +364,18 @@ Content-Type: application/json
 
 
 ## Lost Mode
-Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved.
+Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved. Using an administrator access token the lost mode of any device of the tenant can be enabled.
 
 ### Enable Lost Mode
 
 #### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+Sending either the message and/or phonenumber parameter is mandatory
 
 | Field | Description |
 | ------------ | ------------ |
 | **message** | message which is shown on the lockscreen of the device, if the lost mode was enabled. |
-| **phonenumber** | Phone number (Android only)|
+| **phonenumber** | Phone number |
 | **footnote** | footnote on the bottom of the lockscreen, if the lost mode was enabled. |
 | **password** | new passcode that will be set for the device to unlock (Android only) |
 
@@ -365,7 +443,7 @@ Content-Type: application/json
 ```
 
 ## Location
-The retrieval of the device location can be triggered. Fetching the latest retrieved device location can be done using the [device status](#device-info) request.
+The retrieval of the user device location can be triggered. Fetching the latest retrieved device location can be done using the [device info](#device-info) request. Using an administrator access token the retrieval of the location of any device of the tenant can be triggered.
 
 ### Trigger Location Retrieval Request
 
@@ -405,6 +483,10 @@ This will reset the passcode of a device. For Apple devices the passcode will be
 ### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 The password parameter is only for Android devices mandatory and only then evaluated.
+
+| Field | Description |
+| ------------ | ------------ |
+| **password** | new passcode that will be set for the device to unlock (Android only) |
 
 ```json
 POST /api/mdm/v2/device/resetpasscode HTTP/1.1

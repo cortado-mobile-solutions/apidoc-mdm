@@ -1,6 +1,7 @@
 # Overview
 Users must be created with the Cortado MDM in order to be accessed via the API.
 
+Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/user**
@@ -34,7 +35,7 @@ The following fields can be returned by the API containing information about the
 | ------------ | ------------ |
 | **displayname** | display name of the user |
 | **email** | email address of the user and logon name |
-| **enabled** | *true*, if user is enabled. Otherwise, false. |
+| **enabled** | *true*, if user is enabled. Otherwise, *false* |
 | **firstname** | the user's firstname |
 | **lastname** | the user's lastname |
 | **managedappleid** | the managed Apple ID of the user |
@@ -43,11 +44,16 @@ The following fields can be returned by the API containing information about the
 
 ## User Info
 With this request informations about a user can be retrieved by sending the access token. An admin can request the informations of any user by additionally sending the users sid.
+When sending an admin access token and no sid parameter the user informations for the admin will be returned. The "enabled" response parameter will always be "false" in this case
 
 ### User Info Request
 
 #### Parameters
 The sid parameter is only used if the request is send by an admin. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **sid** | Optional sid of the user |
 
 ```json
 POST /api/mdm/v2/user/info HTTP/1.1
@@ -91,6 +97,12 @@ With this request the password of a user can be changed. This request is only av
 
 #### Parameters
 
+| Field | Description |
+| ------------ | ------------ |
+| **confirmnewpassword** | The confirmation of the new password |
+| **newpassword** | The new password |
+| **oldpassword** | The current password |
+
 ```json
 POST /api/mdm/v2/user/changepassword HTTP/1.1
 Host: go.mycortado.com
@@ -127,6 +139,11 @@ The email will contain a link to reset the password which also contains a reset 
 #### Parameters
 Valid user types are: user, admin
 
+| Field | Description |
+| ------------ | ------------ |
+| **emailaddress** | The email address of the user |
+| **usertype** | The user type (user or admin) |
+
 ```json
 POST /api/mdm/v2/user/forgotpassword HTTP/1.1
 Host: go.mycortado.com
@@ -150,6 +167,11 @@ With this request the password of a user can be reset. It is only available for 
 #### Parameters
 reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
+| Field | Description |
+| ------------ | ------------ |
+| **confirmnewpassword** | The confirmation of the new password |
+| **newpassword** | The new password |
+
 ```json
 POST /api/mdm/v2/user/resetpassword HTTP/1.1
 Host: go.mycortado.com
@@ -172,20 +194,6 @@ Content-Type: application/json
    "errorcode": null,
    "errormessage": null,
    "success": true,
-   "tokenstatus": null
-}
-```
-
-### User Reset Password Error Response
-
-```json
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "errorcode": "03100004",
-   "errormessage": "Invalid token.",
-   "success": false,
    "tokenstatus": null
 }
 ```
@@ -229,9 +237,18 @@ Content-Type: application/json
 With this request a users mdm profile can be downloaded. This request is only avilable for users, not admins, and the response will be a file stream
 When using Apple BYOD make sure that the user has a *Managed Apple ID* through the user info request first.
 
-### User MDM Profile Request for Apple iOS/iPadOS BYOD
+### User MDM Profile Request
 
 #### Parameters
+
+| Field | Description |
+| ------------ | ------------ |
+| **mdmtype** | The mdmtype. Valid values are "android" or "apple" |
+| **byod** | Optional boolean parameter. Set to true if a mdm profile for a byod device is requested |
+| **mac** | Optional boolean parameter. Set to true if a mdm profile for a mac device is requested |
+| **html** | Optional boolean parameter. Set to true if a response html page should be returned |
+
+##### User MDM Profile Request for Apple iOS/iPadOS BYOD with html response
 
 ```json
 POST /api/mdm/v2/user/mdmprofile HTTP/1.1
@@ -241,13 +258,12 @@ Content-Type: application/json
 {
    "mdmtype": "apple",
    "byod": "true",
-   "token": "{access token}"   
+   "token": "{access token}",
+   "html": "true"
 }
 ```
 
-### User MDM Profile Request for Apple macOS BYOD
-
-#### Parameters
+##### User MDM Profile Request for Apple macOS BYOD
 
 ```json
 POST /api/mdm/v2/user/mdmprofile HTTP/1.1
@@ -262,9 +278,7 @@ Content-Type: application/json
 }
 ```
 
-### User MDM Profile Request for Android
-
-#### Parameters
+##### User MDM Profile Request for Android
 
 ```json
 POST /api/mdm/v2/user/mdmprofile HTTP/1.1
@@ -285,36 +299,3 @@ To also show a web page use "html" with "true". If it does not work maybe you ne
 
 ### User MDM Profile Response
 File stream
-
-## User Set SharePoint Credentials
-With this request the SharePoint Credentials of a user can be set. This request is only avilable for users, not admins
-
-### User Set SharePoint Credentials Request
-
-#### Parameters
-
-```json
-POST /api/mdm/v2/user/setsharepointcredentials HTTP/1.1
-Host: go.mycortado.com
-Content-Type: application/json
-
-{
-   "token": "{access token}",
-   "password": "{new password}",
-   "username": "{user name}"   
-}
-```
-
-### User Set SharePoint Credentials Response
-
-```json
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "errorcode": null,
-   "errormessage": null,
-   "success": true,
-   "tokenstatus": null
-}
-```

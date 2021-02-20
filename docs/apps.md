@@ -1,7 +1,10 @@
 # Overview
 Apps must be successfully assigned to a user or a device in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*.
+Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*
+All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/app**
 
@@ -55,6 +58,10 @@ Retrieve a list of all apps assigned to a user and a optional device. The respon
 
 #### Parameters
 The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | Optional clientid (user request only) |
 
 ```json
 POST /api/mdm/v2/app/list HTTP/1.1
@@ -132,8 +139,12 @@ Retrieve informations about an app that is assigned to a user or a device (with 
 ### Get App Info Request
 
 #### Parameters
-The *appid* can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request
 The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | Optional clientid (user request only) |
 
 ```json
 POST /api/mdm/v2/app/info HTTP/1.1
@@ -187,7 +198,7 @@ Retrieve the image of an app. The response is the image file.
 ### Get App Image Request
 
 #### Parameters
-The *appid* can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request
 
 ```json
 POST /api/mdm/v2/app/image HTTP/1.1
@@ -211,12 +222,17 @@ The image file
 ## Install App
 With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device.
 The request can be used for optional and mandatory apps.
+Applications of the type "MU" are currently not supported by this request
 
 ### Install App Request
 
 #### Parameters
-The *appid* can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request
 The *clientid* can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | The clientid of the device |
 
 ```json
 POST /api/mdm/v2/app/install HTTP/1.1
@@ -244,29 +260,20 @@ Content-Type: application/json
 }
 ```
 
-### Install App Error Response
-
-```json
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-    "errorcode": "02200021",
-    "errormessage": "App with id 'AU8' is not compatible to device with client id 'dc1685473f6448dfbb86dc8348cec2d7'.",
-    "success": false,
-    "tokenstatus": "ExpiresSoon"
-}
-```
-
 ## Uninstall App
 With this request an app uninstallation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the uninstallation . Using an administrator access token the app can be uninstalled from any device.
 The request can be used for optional and mandatory apps.
+Applications of the type "MU" are currently not supported by this request
 
 ### Uninstall App Request
 
 #### Parameters
-The *appid* can be obtained through the Get App List request
+The *id* of the app can be obtained through the Get App List request
 The *clientid* can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | The clientid of the device |
 
 ```json
 POST /api/mdm/v2/app/uninstall HTTP/1.1
@@ -291,19 +298,5 @@ Content-Type: application/json
     "errormessage": null,
     "success": true,
     "tokenstatus": null
-}
-```
-
-### Uninstall App Error Response
-
-```json
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-    "errorcode": "02200021",
-    "errormessage": "App with id 'AU8' is not compatible to device with client id 'dc1685473f6448dfbb86dc8348cec2d7'.",
-    "success": false,
-    "tokenstatus": "ExpiresSoon"
 }
 ```
