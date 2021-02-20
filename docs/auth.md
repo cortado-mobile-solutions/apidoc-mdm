@@ -1,5 +1,5 @@
 # Overview
-This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** is required to authenticate any calls.
+This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** is required to authenticate any calls.<br>
 Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
 
 ## Authentication Request

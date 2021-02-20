@@ -1,9 +1,9 @@
 # Overview
 Apps must be successfully assigned to a user or a device in order to be accessed via the API.
 
-Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*.
-Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*
+Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
+Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/app**
