@@ -9,7 +9,7 @@ Use the access token obtained as described [here](auth.md) on every request as t
 ### Example Request
 
 ```json
-POST /api/mdm/v2/app/example HTTP/1.1
+POST /api/mdm/v2/user/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -33,14 +33,14 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **displayname** | display name of the user |
-| **email** | email address of the user and logon name |
+| **displayname** | the display name of the user |
+| **email** | the email address of the user and logon name |
 | **enabled** | *true*, if user is enabled. Otherwise, *false* |
-| **firstname** | the user's firstname |
-| **lastname** | the user's lastname |
+| **firstname** | the firstname of the user |
+| **lastname** | the lastname of the user |
 | **managedappleid** | the managed Apple ID of the user |
-| **phone** | phone number of the user |
-| **sid** | user id |
+| **phone** | the phone number of the user |
+| **sid** | the sid of the user |
 
 ## User Info
 With this request informations about a user can be retrieved by sending the access token. An admin can request the informations of any user by additionally sending the users sid.<br>
@@ -165,7 +165,7 @@ With this request the password of a user can be reset. It is only available for 
 ### User Reset Password Request
 
 #### Parameters
-reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
+Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
 | Field | Description |
 | ------------ | ------------ |
@@ -199,12 +199,12 @@ Content-Type: application/json
 ```
 
 ## User Reset Password Info
-With this request informations for a reset password token, like the display name of the user, can be retrieved. These informations will be in the response section *userresetpasswordinfo*. It is only available for MTC(Cloud) installations
+With this request informations about a reset password token, like the display name of the user, can be retrieved. These informations will be in the response section *userresetpasswordinfo*. It is only available for MTC(Cloud) installations
 
 ### User Reset Password Info Request
 
 #### Parameters
-reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
+Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
 ```json
 POST /api/mdm/v2/user/resetpasswordinfo HTTP/1.1
@@ -244,9 +244,9 @@ When using Apple BYOD make sure that the user has a *Managed Apple ID* through t
 | Field | Description |
 | ------------ | ------------ |
 | **mdmtype** | The mdmtype. Valid values are "android" or "apple" |
-| **byod** | Optional boolean parameter. Set to true if a mdm profile for a byod device is requested |
-| **mac** | Optional boolean parameter. Set to true if a mdm profile for a mac device is requested |
-| **html** | Optional boolean parameter. Set to true if a response html page should be returned |
+| **byod** | Optional boolean parameter. Set to *true* if a mdm profile for a byod device is requested |
+| **mac** | Optional boolean parameter. Set to *true* if a mdm profile for a mac device is requested |
+| **html** | Optional boolean parameter. Set to *true* if a response html page should be returned |
 
 ##### User MDM Profile Request for Apple iOS/iPadOS BYOD with html response
 
@@ -291,8 +291,8 @@ Content-Type: application/json
 }
 ```
 
-This request is also available as a GET request. Just pass the json as a query parameters in this case.<br>
-To also show a web page use "html" with "true". If it does not work maybe you need to url encode the stuff, but maybe your browser will do it.
+This request is also available as a GET request. Just pass the json as a query parameter in this case. (url encoding of the parameter might be necessary)<br>
+To show a web page use "html" with "true".
 ```
 (...)user/mdmprofile?json={"mdmtype":"apple","byod":"true","html":"true","token":"x"}
 ```

@@ -12,9 +12,9 @@ An admin account is able to login to the Cortado MDM management console [here](h
 | ------------ | ------------- | ------------ |
 | **type** | basic | Currently, only basic authentication is supported. |
 | **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
-| **username** |  | the Cortado MDM user/admin e-mail address |
-| **password** |  | the Cortado MDM password of the admin/user |
-| **mtcid** |  | the id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account or an admin account with access to multiple tenants |
+| **username** |  | The Cortado MDM user/admin e-mail address |
+| **password** |  | The Cortado MDM password of the admin/user |
+| **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account or an admin account with access to multiple tenants |
 
 ```json
 POST /api/mdm/v2/user/login HTTP/1.1
@@ -36,11 +36,11 @@ Content-Type: application/json
 
 | Field | Description |
 | ------------ | ------------ |
-| **errorcode** | contains an error code, only if *success* is *false*. |
-| **errormessage**  | contains an error message, only if *success* is *false*. |
-| **success**  | is *true*, if the request is successfull. Otherwise *false*. |
-| **tokenstatus**  | is empty, if token is still valid for use. *ExpiresSoon*, if token should be refreshed. *Expired*, if token has expired and a new token needs to be requested. |
-| **token** | contains the access token, if *success* is *true*. |
+| **errorcode** | Ccontains an error code, only if *success* is *false*. |
+| **errormessage**  | Contains an error message, only if *success* is *false*. |
+| **success**  | Is *true*, if the request is successfull. Otherwise *false*. |
+| **tokenstatus**  | Is empty, if token is still valid for use. *ExpiresSoon*, if token should be refreshed. *Expired*, if token has expired and a new token needs to be requested. |
+| **token** | Contains the access token, if *success* is *true*. |
 
 ```json
 HTTP/1.1 200 OK

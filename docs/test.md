@@ -24,7 +24,7 @@ With this request the general availability of the api can be checked
 #### Parameters
 
 ```json
-POST /api/mdm/v2/system/info HTTP/1.1
+POST /api/mdm/v2/test/hellworld HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 ```

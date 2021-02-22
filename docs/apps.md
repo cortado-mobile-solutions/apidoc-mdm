@@ -1,5 +1,5 @@
 # Overview
-Apps must be successfully assigned to a user or a device in order to be accessed via the API.
+For most requests the apps must be successfully assigned to a user or a device in order to be accessed via the API.
 
 Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
@@ -28,7 +28,7 @@ Content-Type: application/json
 | ------------ | ------------ |
 | 200 | Request successfull. The response body will contain optional app data. |
 | 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
-| 404 | The requested entity (e.g. device) was not found. A wrong identifier (e.g. clientid) was passed within the request. |
+| 404 | The requested entity (e.g. app) was not found. A wrong identifier (e.g. id) was passed within the request. |
 
 ## App Fields
 
@@ -37,8 +37,8 @@ The following fields can be returned by the API containing information about the
 | Field | Description |
 | ------------ | ------------ |
 | **actions** | This sections contains actions that can, or cannot, (indicated by a boolean value) be carried out on the app. Evaluating this part only makes sense if the clientid was send in the request. |
-| **apptype** | The type of the app. Possible values are<br>AU: App Url<br>EA: Enterprise App<br>MU: Multimedia Url  |
-| **compatibletodevice** | *true*, if the app is compatible to the optional passed device identified through the clientid, otherwise *false* |
+| **apptype** | The type of the app. Possible values are<br>AU: App Url<br>EA: Enterprise App<br>MU: Multimedia Url |
+| **compatibletodevice** | *true*, if the app is compatible to the optional passed device, otherwise *false* |
 | **devicetype** | Indicates if the app is compatible to smartphones and/or tablets |
 | **displayname** | The name of the app displayed in the management console |
 | **id** | The id of the app |
@@ -49,7 +49,7 @@ The following fields can be returned by the API containing information about the
 | **statusdetails** | Details about the status of the app |
 
 **Important**
-Getting the expected value for the status field could take some time, because the app installation might need user interaction (depending on the enrollment type) and an update of the status is triggered through the device sync or manually by the admin.
+Getting the expected value for the status field could take some time, because the app installation might need user interaction (depending on the enrollment type) and an update of the status has to be triggered through the device sync or manually by the admin.
 
 ## Get App List
 Retrieve a list of all apps assigned to a user and a optional device. The response contains an array of all apps assigned to the authenticated user and the device (if a clientid was send). Using an administrator access token to request the apps, the response will contain all apps of the managed tenant.
@@ -211,7 +211,7 @@ Content-Type: application/json
 }
 ```
 
-This request is also available as a GET request. Just pass the json as a query parameters in this case.
+This request is also available as a GET request. Just pass the json as a query parameter in this case. (url encoding of the parameter might be necessary)
 ```
 (...)app/image?json={"id": "x","token": "x"}
 ```
@@ -220,9 +220,8 @@ This request is also available as a GET request. Just pass the json as a query p
 The image file
 
 ## Install App
-With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device.<br>
+With this request an app installation for a device of a user can be triggered. The app has to be already assigned to the user or the device of the user and it has to be compatible. The response contains informations about the success or failure of the installation . Using an administrator access token the app can be pushed to any device, if it is assigned.<br>
 The request can be used for optional and mandatory apps.<br>
-Applications of the type "MU" are currently not supported by this request
 
 ### Install App Request
 
@@ -263,7 +262,6 @@ Content-Type: application/json
 ## Uninstall App
 With this request an app uninstallation for a device of a user can be triggered. The app has to be already assigned to the user or the device and it has to be compatible. The response contains informations about the success or failure of the uninstallation . Using an administrator access token the app can be uninstalled from any device.<br>
 The request can be used for optional and mandatory apps.<br>
-Applications of the type "MU" are currently not supported by this request
 
 ### Uninstall App Request
 

@@ -3,7 +3,7 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 
 Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
-Use either the clientid, imei or serialnumber of the device which can be retrieved through the device list request on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*<br>
+Use either the clientid, imei or serialnumber of the device, which can be retrieved through the device list request, on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/device**
@@ -11,7 +11,7 @@ All additional request parameters are also added as json fields to the request b
 ### Example Request with clientid
 
 ```json
-POST /api/mdm/v2/device/list HTTP/1.1
+POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 ### Example Request with imei
 
 ```json
-POST /api/mdm/v2/device/list HTTP/1.1
+POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -39,7 +39,7 @@ Content-Type: application/json
 ### Example Request with serialnumber
 
 ```json
-POST /api/mdm/v2/device/list HTTP/1.1
+POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
@@ -64,32 +64,32 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **actions** | This sections contains actions that can, or cannot, be carried out on the device.<br>When the status parameter is "1" the action is already pending.<br> The visible parameter indicated if the action is available and can be displayed |
-| **androidforworktype**  | Android device management mode.<br>2: Work Profile,<br>3: Fully Managed |
-| **batterylevel** | battery level in percent |
-| **clientid** | unique device identifier |
-| **displayname** | device display name |
-| **enrollmenttype** | shows the enrollment type of the device. Values can be<br>0: Zero-Touch (Android)<br>1: Device Enrollment Program (iOS/ipadOS)<br>2: User Enrollment (iOS/ipadOS)<br>3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one the listed above then *null* indcates no enrollment method. |
-| **freestorageinfo** | free storage on the device |
-| **freestoragemb** | free storage on the device in megabytes |
-| **imei** | device IMEI (if device has a SIM card inserted) |
-| **lastcontact** | date and time of last contact / check-in of the device |
-| **location** | last known location incl. timestamp of the device |
-| **lostmodeenabled** | *true*, if the lost-mode is enabled for the device. Otherwise, *false*. |
+| **actions** | This sections contains actions that can, or cannot, be carried out on the device.<br>When the status parameter is "1" the action is already pending.<br> The visible parameter indicates if the action is available and can be displayed |
+| **androidforworktype**  | Android device management mode.<br>2: Work Profile<br>3: Fully Managed<br>4: Work Profile on Company Owner Device |
+| **batterylevel** | Battery level in percent |
+| **clientid** | Unique device identifier |
+| **displayname** | Device display name |
+| **enrollmenttype** | Shows the enrollment type of the device. Values can be<br>0: Zero-Touch (Android)<br>1: Device Enrollment Program (iOS/ipadOS)<br>2: User Enrollment (iOS/ipadOS)<br>3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one of the listed above then *null* indicates no enrollment method. |
+| **freestorageinfo** | Free storage on the device |
+| **freestoragemb** | Free storage on the device in megabytes |
+| **imei** | Device IMEI (if device has a SIM card inserted) |
+| **lastcontact** | Date and time of last contact / check-in of the device |
+| **location** | Last known location incl. timestamp of the device |
+| **lostmodeenabled** | *true*, if the lost mode is enabled for the device. Otherwise, *false*. |
 | **managed** | *true*, if the device is managed by the MDM. Otherwise, *false*. |
-| **mdmid** | On iOS supervised: UDID, on iOS User Enrolment: Enrollment ID, on Android: Android ID |
+| **mdmid** | On iOS supervised: UDID<br>On iOS User Enrollment: Enrollment ID<br>On Android: Android ID |
 | **mdmprofileremoved** | *true* if the mdm profile was removed from the device |
-| **modelname** | device model name |
-| **osname** | display name of the installed OS |
+| **modelname** | Device model name |
+| **osname** | Display name of the installed OS |
 | **passcodecompliant** | *true*, id the device is compliant to the password policy, otherwise *false* |
 | **passwordenabled** | *true*, if the screen lock on the device is configured (Android only), otherwise *false* |
-| **recoverytoken** | if the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
-| **roaming** | indicates, if the device is roaming |
-| **serialnumber** | device serial number |
-| **storagemb** | total storage of the device |
+| **recoverytoken** | If the lost mode is enabled on the device it contains a recovery token that can be used to manually disable the lost mode on the device (Android only).|
+| **roaming** | Indicates, if the device is roaming |
+| **serialnumber** | Device serial number |
+| **storagemb** | Total storage of the device |
 | **supervised** | *true*, if the device is an iOS/iPad OS device and is supervised. Otherwise, *empty* or *false*. |
-| **type** | indicates the operating system of the device.<br>2: iOS/ipadOS<br>4: Android<br>7: macOS |
-| **usersid** | the user id of the associated user (details on the user can be retrieved with a [user request](user.md)) |
+| **type** | Indicates the operating system of the device.<br>2: iOS/ipadOS<br>4: Android<br>7: macOS |
+| **usersid** | The user id of the associated user (details on the user can be retrieved with a [user request](user.md)) |
 | **wiped** | *true* if the device was wiped, otherwise *false* |
 
 
@@ -188,7 +188,7 @@ Content-Type: application/json
 
 
 ## Device Info
-Returns detailed information about a user device. Using an administrator access token the device info of any device of the tenant can be retrieved.
+Returns detailed informations about a user device. Using an administrator access token the device info of any device of the tenant can be retrieved.
 
 ### Device Info Request
 
@@ -331,8 +331,8 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 
 | Field | Description |
 | ------------ | ------------ |
-| **macpin** | Optional 6-digit pin (macOS, full wipe only)|
-| **partial** | Optional boolean parameter. Set to true to perform a partial wipe|
+| **macpin** | Optional 6-digit pin (macOS, full wipe only) |
+| **partial** | Optional boolean parameter. Set to *true* to perform a partial wipe |
 
 ```json
 POST /api/mdm/v2/device/wipe HTTP/1.1
@@ -374,10 +374,10 @@ Sending either the message and/or phonenumber parameter is mandatory
 
 | Field | Description |
 | ------------ | ------------ |
-| **message** | message which is shown on the lockscreen of the device, if the lost mode was enabled. |
-| **phonenumber** | Phone number |
-| **footnote** | footnote on the bottom of the lockscreen, if the lost mode was enabled. |
-| **password** | new passcode that will be set for the device to unlock (Android only) |
+| **message** | Message which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **phonenumber** | Phone number which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **footnote** | Footnote on the bottom of the lockscreen, if the lost mode was enabled. |
+| **password** | New passcode that will be set for the device to unlock (Android only) |
 
 #### Enable Lost Mode Request
 
@@ -411,6 +411,7 @@ Content-Type: application/json
 ```
 
 ### Disable Lost Mode
+This will disable a possibly enabled lost mode of a device
 
 #### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request

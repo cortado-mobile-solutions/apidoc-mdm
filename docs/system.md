@@ -86,10 +86,10 @@ Content-Type: application/json
 }
 ```
 
-This request is also available as a GET request. Just pass the json as a query parameters in this case.
+This request is also available as a GET request. Just pass the json as a query parameter in this case. (url encoding of the parameter might be necessary)
 ```
 (...)/system/rootca?json={"token":"x"}
 ```
 
 ### System Info Response
-The Root CA as a file
+The Root CA public kea part as a file
