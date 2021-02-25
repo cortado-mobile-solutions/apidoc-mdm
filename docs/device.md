@@ -100,13 +100,18 @@ Retrieve a list of all managed devices and basic details about the device status
 
 #### Parameters
 
+| Field | Description |
+| ------------ | ------------ |
+| **culture** | Optional, send this with the value *de* to change the decimal separators within the freestorageinfo response value to *,*. Default decimal separators are *.* |
+
 ```json
 POST /api/mdm/v2/device/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
 
 {
-    "token":"{access token}"
+    "token":"{access token}",
+	"culture":"de"
 }
 ```
 
@@ -195,6 +200,10 @@ Returns detailed informations about a user device. Using an administrator access
 ### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
+| Field | Description |
+| ------------ | ------------ |
+| **culture** | Optional, send this with the value *de* to change the decimal separators within the freestorageinfo response value to *,*. Default decimal separators are *.* |
+
 ```json
 POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
@@ -202,7 +211,8 @@ Content-Type: application/json
 
 {
     "token":"{access token}",
-    "clientid":"{client id}"
+    "clientid":"{client id}",
+	"culture":"de"
 }
 ```
 

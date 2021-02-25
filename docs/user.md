@@ -160,7 +160,8 @@ The response will always be successful, only because of infrastructural problems
 If the user exists an email, with the necessary informations, will get send to the user.
 
 ## User Reset Password
-With this request the password of a user can be reset. It is only available for MTC(Cloud) installations
+With this request the password of a user can be reset. It is only available for MTC(Cloud) installations<br>
+It will trigger a confirmation email or an instruction email about enrolling a new device (if the optional parameter *join* was send with the value *true*)
 
 ### User Reset Password Request
 
@@ -171,6 +172,7 @@ Reset password token - This token is part of the forgot password email that is s
 | ------------ | ------------ |
 | **confirmnewpassword** | The confirmation of the new password |
 | **newpassword** | The new password |
+| **join** | Optional boolean value. If this is *true* an email about enrolling a new device will be send to the customer after the successful password reset instead of a confirmation email that the password was successfully changed |
 
 ```json
 POST /api/mdm/v2/user/resetpassword HTTP/1.1
@@ -180,7 +182,8 @@ Content-Type: application/json
 {
    "token": "{reset password token}",
    "confirmnewpassword": "{new password}",
-   "newpassword": "{new password}"
+   "newpassword": "{new password}",
+   "join": "true"
 }
 ```
 
