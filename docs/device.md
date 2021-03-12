@@ -1,7 +1,6 @@
-# Overview
+# Overview<sup>[1](#myfootnote1)</sup>
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
 
-Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
 Use either the clientid, imei or serialnumber of the device, which can be retrieved through the device list request, on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
@@ -524,3 +523,5 @@ Content-Type: application/json
     "tokenstatus": null
 }
 ```
+
+<a name="myfootnote1">1</a>: Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>

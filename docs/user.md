@@ -1,7 +1,6 @@
 # Overview<sup>[1](#myfootnote1)</sup>
 Users must be created with the Cortado MDM in order to be accessed via the API.
 
-[^1]: Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/user**
@@ -303,4 +302,4 @@ To show a web page use "html" with "true".
 ### User MDM Profile Response
 File stream
 
-<a name="myfootnote1">1</a>: Footnote content goes here
+<a name="myfootnote1">1</a>: Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
