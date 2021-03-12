@@ -19,7 +19,7 @@ Content-Type: application/json
 ## Hello world
 With this request the general availability of the api can be checked
 
-### System Info Request
+### Hello world Request
 
 #### Parameters
 
@@ -29,7 +29,7 @@ Host: go.mycortado.com
 Content-Type: application/json
 ```
 
-### System Info Response
+### Hello world Response
 
 ```json
 HTTP/1.1 200 OK

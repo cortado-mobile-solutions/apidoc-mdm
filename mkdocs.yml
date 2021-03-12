@@ -1,9 +1,7 @@
 site_name: Cortado MDM API Documentation
 nav:
  - Home: index.md
- - Test: test.md 
  - Authentication: auth.md
- - System: system.md 
  - User: user.md
  - Device: device.md
  - Apps: apps.md
