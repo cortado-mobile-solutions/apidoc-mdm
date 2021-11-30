@@ -3,6 +3,7 @@ nav:
  - Home: index.md
  - Authentication: auth.md
  - User: user.md
+ - Group: group.md 
  - Device: device.md
  - Apps: apps.md
 theme: readthedocs

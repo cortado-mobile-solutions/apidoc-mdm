@@ -24,6 +24,7 @@ Content-Type: application/json
 | ------------ | ------------ |
 | 200 | Request successfull. The response body will contain optional user data. |
 | 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
+| 403 | Action forbidden. For example when a user access token is send in the request that is only usable with an admin access token. |
 | 404 | The requested entity (e.g. user) was not found. A wrong identifier (e.g. usersid) was passed within the request. |
 
 ## User Fields
@@ -86,6 +87,114 @@ Content-Type: application/json
         "phone": "123456789",
         "sid": "2640ee91-1cbc-4647-85df-a3daff5055e1"
     }
+}
+```
+
+## User List
+This request can only be used by sending an admin access token.<br>
+By sending such a token informations about all users of the admin access tokens tenant can be retrieved.
+
+### User List Request
+
+#### Parameters
+
+```json
+POST /api/mdm/v2/user/list HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}"
+}
+```
+
+### User List Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null,
+    "data": [
+        {
+            "displayname": "displayname",
+            "email": "local@domain.com",
+            "enabled": true,
+            "firstname": "firstname",
+            "lastname": "lastname",
+            "managedappleid": null,
+            "phone": null,
+            "sid": "ca430b02-af32-4abc-b2d0-135d80dc453f"
+        },
+        {
+            "displayname": "displayname",
+            "email": "local@domain.com",
+            "enabled": true,
+            "firstname": "firstname",
+            "lastname": "lastname",
+            "managedappleid": null,
+            "phone": null,
+            "sid": "e1dc1bd8-674d-4542-91ac-cdad451b2535"
+        }
+    ],
+    "pagecount": 1,
+    "pageindex": 1,
+    "totalcount": 2
+}
+```
+
+## User Create
+This request can only be used by sending an admin access token.<br>
+By sending such a token a user can be deleted from the admin access tokens tenant.
+*Deleting a user that has devices, without removing the MDM from the devices before, can make the devices useless (bricked).*
+
+### User Create Request
+
+#### Parameters
+
+| Field | Description |
+| ------------ | ------------ |
+| **email** | The email of the new user |
+| **emailculture** | Optional email language for the new user. Valid values are *de-DE* or *en-US*. Default is *de-DE* |
+| **sendemail** | Optional boolean value. If this is *true* an onboarding email will be send to the new user during the creation process. Default is *true* |
+| **lastname** | Optional last name of the new user |
+| **firstname** | Optional first name of the new user |
+| **grouptemplateid** | Optional group template id of the new user. By default the default user group template will be used |
+| **password** | Optional password of the new user |
+
+```json
+POST /api/mdm/v2/user/create HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+   "token": "x",
+   "email": "local@domain.com",
+   "emailculture": "en-US",
+   "sendemail": false,
+   "lastname": "Last",
+   "firstname": "First",
+   "grouptemplateid": 2,
+   "password": "secret"
+}
+```
+
+### User Create Success Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null,
+    "data": "9b0599df-3d80-4b47-bdb4-a29f51878419"
 }
 ```
 
@@ -301,3 +410,42 @@ To show a web page use "html" with "true".
 
 ### User MDM Profile Response
 File stream
+
+## User Delete
+This request can only be used by sending an admin access token.<br>
+By sending such a token a user can be deleted from the admin access tokens tenant.
+*Deleting a user that has devices, without removing the MDM from the devices before, can make the devices useless (bricked).*
+
+### User Delete Request
+
+#### Parameters
+The *sid* can be obtained through the user list request
+
+| Field | Description |
+| ------------ | ------------ |
+| **sid** | The sid of the user to delete |
+
+```json
+POST /api/mdm/v2/user/delete HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	"sid": "{sid}",
+    "token":"{access token}"
+}
+```
+
+### User Delete Success Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null
+}
+```
