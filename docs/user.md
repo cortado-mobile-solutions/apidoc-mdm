@@ -149,8 +149,9 @@ Content-Type: application/json
 
 ## User Create
 This request can only be used by sending an admin access token.<br>
-By sending such a token a user can be deleted from the admin access tokens tenant.
-*Deleting a user that has devices, without removing the MDM from the devices before, can make the devices useless (bricked).*
+By sending such a token a user can be created in the admin access tokens tenant.
+When the user creation succeeded, but a non essential subtask failed informations about this can be found in the response parameter *warningmessage*.
+Possible subtask failures are for example when sending the onboarding email fails or assigning the user to the configured (and existing) group template fails.
 
 ### User Create Request
 
@@ -194,7 +195,28 @@ Content-Type: application/json
     "errormessage": null,
     "success": true,
     "tokenstatus": null,
-    "data": "9b0599df-3d80-4b47-bdb4-a29f51878419"
+    "data": {
+        "sid": "9b0599df-3d80-4b47-bdb4-a29f51878419",
+        "warningmessage": null
+    }
+}
+```
+
+### User Create Success Response (subtask failed)
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode": null,
+    "errormessage": null,
+    "success": true,
+    "tokenstatus": null,
+    "data": {
+        "sid": "2f8f19b0-ab76-407a-a58d-6a1e2ae5b798",
+        "warningmessage": "User imported. But… Failed to send the invitation email to the user. Failed to send e-mail to 'local@domain.com' via MailJet API."
+    }
 }
 ```
 
