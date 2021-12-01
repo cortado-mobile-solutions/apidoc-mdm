@@ -1,6 +1,7 @@
 # Overview
 Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
-Use the access token obtained as described [here](auth.md) on every request where the json field *token* is required. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+Use the access token obtained as described [here](auth.md) on every request where the json field *token* is required. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/system**
 
@@ -31,6 +32,7 @@ The following fields can be returned by the API containing information about the
 | Field | Description |
 | ------------ | ------------ |
 | **mtcenabled** | *true*, if MTC (Multi Tenacy Mode) is enabled, otherwise *false* |
+| **userportal - enabled** | *true*, if the user portal is enabled, otherwise *false* |
 | **showairprint** | *true*, if the airprint section is displayed in the user portal, otherwise *false* |
 | **showapps** | *true*, if the apps section is displayed in the user portal, otherwise *false* |
 | **showdeviceenrollment** | *true*, if the device enrollment section is displayed in the user portal, otherwise *false* |
@@ -66,6 +68,7 @@ Content-Type: application/json
    "tokenstatus": null,
    "systeminfo": {
       "mtcenabled": true
+	  ...
    }
 }
 ```

@@ -1,7 +1,8 @@
 # Overview
-Users must be created with the Cortado MDM in order to be accessed via the API.
+Users can be created with the Cortado MDM or through the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/user**
 

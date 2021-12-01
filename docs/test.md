@@ -1,4 +1,5 @@
 # Overview
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/test**
 

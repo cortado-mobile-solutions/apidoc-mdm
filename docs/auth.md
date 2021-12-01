@@ -1,5 +1,6 @@
 # Overview
-This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** is required to authenticate any calls.<br>
+This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** is required to authenticate any calls.<br><br>
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 ## Authentication Request
 An access token can be issued for **admin or user access**. A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.<br>

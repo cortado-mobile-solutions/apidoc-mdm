@@ -3,7 +3,8 @@ Devices must be successfully enrolled with the Cortado MDM in order to be access
 
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
 Use either the clientid, imei or serialnumber of the device, which can be retrieved through the device list request, on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*<br>
-All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/device**
 
@@ -98,10 +99,6 @@ Retrieve a list of all managed devices and basic details about the device status
 ### List Devices Request
 
 #### Parameters
-
-| Field | Description |
-| ------------ | ------------ |
-| **culture** | Optional, send this with the value *de* to change the decimal separators within the freestorageinfo response value to *,*. Default decimal separators are *.* |
 
 ```json
 POST /api/mdm/v2/device/list HTTP/1.1
@@ -198,10 +195,6 @@ Returns detailed informations about a user device. Using an administrator access
 
 ### Parameters
 Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
-| Field | Description |
-| ------------ | ------------ |
-| **culture** | Optional, send this with the value *de* to change the decimal separators within the freestorageinfo response value to *,*. Default decimal separators are *.* |
 
 ```json
 POST /api/mdm/v2/device/info HTTP/1.1

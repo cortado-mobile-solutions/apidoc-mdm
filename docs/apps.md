@@ -3,7 +3,8 @@ For most requests the apps must be successfully assigned to a user or a device i
 
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
 Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*<br>
-All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.
+All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
+Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/app**
 
