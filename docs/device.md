@@ -516,3 +516,37 @@ Content-Type: application/json
     "tokenstatus": null
 }
 ```
+
+## Device Mdm App List
+With this request, the device is requested to send back its current apps and docs list to the MDM server. This request will create new MDM cmds (if not already open cmds of the same type exist) for the device and try to reach it via APNS (for Android it will use the Play API). The device will then connect anytime (maybe 3-5 s, or a day, or a week) with the MDM server and try to reply the MDM cmds. After that the new app list data is available and can be get by the AppList or AppInfo request. Normally if everything works fine (device connection, cloud), the data should be there in 3-5 seconds.<br>
+Using an administrator access token the retrieval of the location of any device of the tenant can be triggered.
+
+### Device Mdm App List Request
+
+### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+
+```json
+POST /api/mdm/v2/device/requestapplist HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+    "token":"{access token}",
+    "clientid":"{client id}"
+}
+```
+
+### Device Mdm App List Response
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "errorcode":null,
+    "errormessage":null,
+    "success":true,
+    "tokenstatus":null
+}
+```
