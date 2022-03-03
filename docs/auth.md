@@ -4,7 +4,7 @@ Using the Accept-Language request header the response localization can be set. D
 
 ## Api key authentication
 The api key authentication is only available for admin users and all requests that require authentication.<br> An api key can be set for each admin individually through the administrators aspect of the administration portal if the customers plan includes the role-based rights management for administrators.
-A detailed description on how to set the api key can be found [here](https://support.cortado.com/en/support/solutions/articles/43000660252-how-to-access-the-cortado-mdm-api)
+A detailed description on how to set the api key can be found [here](https://support.cortado.com/en/support/solutions/articles/43000660252-how-to-access-the-cortado-mdm-api)<br>
 To authenticate using an api key an authorization header is required. Please note that a access token will always outrank an api key, if both authentication methods are send within the same request
 
 The authorization header has to use the following structure...
