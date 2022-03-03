@@ -1,8 +1,8 @@
 # Overview
 For most requests the apps must be successfully assigned to a user or a device in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
-Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+**Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
+To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
 Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
@@ -15,10 +15,10 @@ Using the Accept-Language request header the response localization can be set. D
 POST /api/mdm/v2/app/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
     "clientid": "{client_id}",
-    "token":"{access token}",
     ... all other request parameters ...
 }
 ```
@@ -68,10 +68,10 @@ The *clientid* is optional. It can be retrieved through the device list request 
 POST /api/mdm/v2/app/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "clientid": "{client_id}",
-    "token":"{access token}"
+    "clientid": "{client_id}"
 }
 ```
 
@@ -151,11 +151,11 @@ The *clientid* is optional. It can be retrieved through the device list request 
 POST /api/mdm/v2/app/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
 	"id": "{app_id}",
-    "clientid": "{client_id}",
-    "token":"{access token}"
+    "clientid": "{client_id}"
 }
 ```
 
@@ -205,10 +205,10 @@ The *id* of the app can be obtained through the Get App List request
 POST /api/mdm/v2/app/image HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-	"id": "{app_id}",
-    "token":"{access token}"
+	"id": "{app_id}"
 }
 ```
 
@@ -238,11 +238,11 @@ The *clientid* can be retrieved through the device list request as described [he
 POST /api/mdm/v2/app/install HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
 	"id": "{app_id}",
-    "clientid": "{client_id}",
-    "token":"{access token}"
+    "clientid": "{client_id}"
 }
 ```
 
@@ -278,11 +278,11 @@ The *clientid* can be retrieved through the device list request as described [he
 POST /api/mdm/v2/app/uninstall HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
 	"id": "{app_id}",
-    "clientid": "{client_id}",
-    "token":"{access token}"
+    "clientid": "{client_id}"
 }
 ```
 

@@ -1,7 +1,7 @@
 # Overview
 Use the header *cms-dhsc* with the value *true* or *1* if the response http code should always be 200. In this case the *success* field within the response indicates a successful request only if the value is *true*. A failed request will return a response with a detailed error message within the *errormessage* field.<br>
-Use the access token obtained as described [here](auth.md) on every request where the json field *token* is required.<br>
-Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+**Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
+To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
@@ -13,10 +13,10 @@ Using the Accept-Language request header the response localization can be set. D
 POST /api/mdm/v2/system/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
-    ... all other request parameters ...
+    ... all request parameters ...
 }
 ```
 
@@ -85,9 +85,9 @@ Retrieve the Root CA public key part.
 POST /api/mdm/v2/system/rootca HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}"
 }
 ```
 

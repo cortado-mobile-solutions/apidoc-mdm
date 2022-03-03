@@ -1,8 +1,8 @@
 # Overview
 Users can be created with the Cortado MDM or through the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
-Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+**Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
+To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
@@ -14,10 +14,10 @@ Using the Accept-Language request header the response localization can be set. D
 POST /api/mdm/v2/user/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
-    ... all other request parameters ...
+    ... request parameters ...
 }
 ```
 
@@ -62,9 +62,9 @@ The sid parameter is only used if the request is send by an admin. It can be ret
 POST /api/mdm/v2/user/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "sid":"{usersid}"
 }
 ```
@@ -105,9 +105,9 @@ By sending such a token informations about all users of the admin access tokens 
 POST /api/mdm/v2/user/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}"
 }
 ```
 
@@ -174,9 +174,9 @@ Possible subtask failures are for example when sending the onboarding email fail
 POST /api/mdm/v2/user/create HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-   "token": "x",
    "email": "local@domain.com",
    "emailculture": "en-US",
    "sendemail": false,
@@ -218,7 +218,7 @@ Content-Type: application/json
     "tokenstatus": null,
     "data": {
         "sid": "2f8f19b0-ab76-407a-a58d-6a1e2ae5b798",
-        "warningmessage": "User imported. But… Failed to send the invitation email to the user. Failed to send e-mail to 'local@domain.com' via MailJet API."
+        "warningmessage": "A warning message"
     }
 }
 ```
@@ -240,9 +240,9 @@ With this request the password of a user can be changed. This request is only av
 POST /api/mdm/v2/user/changepassword HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-   "token": "{access token}",
    "confirmnewpassword": "{new password}",
    "newpassword": "{new password}",
    "oldpassword": "{old password}"
@@ -390,11 +390,11 @@ When using Apple BYOD make sure that the user has a *Managed Apple ID* through t
 POST /api/mdm/v2/user/mdmprofile HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
    "mdmtype": "apple",
    "byod": "true",
-   "token": "{access token}",
    "html": "true"
 }
 ```
@@ -454,10 +454,10 @@ The *sid* can be obtained through the user list request
 POST /api/mdm/v2/user/delete HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-	"sid": "{sid}",
-    "token":"{access token}"
+	"sid": "{sid}"
 }
 ```
 

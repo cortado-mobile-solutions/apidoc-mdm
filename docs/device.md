@@ -1,8 +1,8 @@
 # Overview
 Devices must be successfully enrolled with the Cortado MDM in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
-Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+**Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
+To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
 Use either the clientid, imei or serialnumber of the device, which can be retrieved through the device list request, on every request except the device list request as the json fields *clientid*, *imei* or *serialnumber*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
@@ -15,9 +15,9 @@ Using the Accept-Language request header the response localization can be set. D
 POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid": "{client_id}",
     ... all other request parameters ...
 }
@@ -29,9 +29,9 @@ Content-Type: application/json
 POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "imei": "{device_imei}",
     ... all other request parameters ...
 }
@@ -105,9 +105,9 @@ Retrieve a list of all managed devices and basic details about the device status
 POST /api/mdm/v2/device/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
 	"culture":"de"
 }
 ```
@@ -201,9 +201,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}",
 	"culture":"de"
 }
@@ -301,9 +301,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/lockscreen HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}",
     "message":"{message}",
     "phonenumber":"{phonenumber}",
@@ -341,9 +341,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/wipe HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}",
     "macpin":"{macpin}",
     "partial":"true"
@@ -388,9 +388,9 @@ Sending either the message and/or phonenumber parameter is mandatory
 POST /api/mdm/v2/device/enablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}",
     "message":"Please call the following number for unlock instructions.",
     "phonenumber":"0123456789",
@@ -425,9 +425,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/disablelostmode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}"
 }
 ```
@@ -458,9 +458,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/requestlocation HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}"
 }
 ```
@@ -496,9 +496,9 @@ The password parameter is only for Android devices mandatory and only then evalu
 POST /api/mdm/v2/device/resetpasscode HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "password":"{new password}",	
     "clientid":"{client id}"
 }
@@ -531,9 +531,9 @@ Use either *clientid*, *imei* or *serialnumber* to specify the device. They can 
 POST /api/mdm/v2/device/requestapplist HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
     "clientid":"{client id}"
 }
 ```

@@ -1,8 +1,8 @@
 # Overview
 Group templates must be created with the Cortado MDM in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
-Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+**Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
+To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
@@ -14,10 +14,10 @@ Using the Accept-Language request header the response localization can be set. D
 POST /api/mdm/v2/group/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}",
-    ... all other request parameters ...
+    ... all request parameters ...
 }
 ```
 
@@ -53,9 +53,9 @@ By sending such a token informations about all group templates of the admin acce
 POST /api/mdm/v2/group/list HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
-    "token":"{access token}"
 }
 ```
 
