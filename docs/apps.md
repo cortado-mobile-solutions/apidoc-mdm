@@ -2,6 +2,7 @@
 For most requests the apps must be successfully assigned to a user or a device in order to be accessed via the API.
 
 Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
+Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
 Use the appid of the app which can be obtained through the Get App List request on every request except the get app list request as the json field *id*<br>
 All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german

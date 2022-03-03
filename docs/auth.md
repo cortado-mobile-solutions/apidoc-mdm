@@ -1,5 +1,5 @@
 # Overview
-This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** is required to authenticate any calls.<br><br>
+This section describes the authentication process with the Cortado MDM API. In order to perform any API requests, an **access token** or **api key authorization header** is required to authenticate any calls.<br><br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 ## Authentication Request
@@ -14,7 +14,7 @@ An admin account is able to login to the Cortado MDM management console [here](h
 | **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
 | **username** |  | The Cortado MDM user/admin e-mail address |
 | **password** |  | The Cortado MDM password of the admin/user |
-| **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account or an admin account with access to multiple tenants |
+| **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account |
 
 ```json
 POST /api/mdm/v2/user/login HTTP/1.1
@@ -69,5 +69,33 @@ Content-Type: application/json
 
 {
     "token":"{access token}"
+}
+```
+
+## Api key authentication
+The api key authentication is only available for admin users and all requests that also support a access token authentication . An api key can be set for each admin individually through the administrators aspect of the administration portal if the customers plan includes the role-based rights management for administrators.
+To authenticate using an api key an authorization header is required. Please note that a access token will always outrank an api key, if both authentication methods are send within the same request
+
+The authorization header has to use the following structure...
+
+*Authorization: Api-Key abc_personal_access_token_xyz*
+
+Additionally a **mtcid** parameter has to be added to the requests body if the admin user has access to multiple tenants. This parameter has to contain the id of the Cortado MDM tenant for which the request should be executed. It is of course mandatory that the api key administrator has access to this tenant
+
+### Parameters
+
+| Parameter | Values | Description |
+| ------------ | ------------- | ------------ |
+| **mtcid** |  | The id of the Cortado MDM tenant. The mtcid for a tenant can be found in the settings aspect (general tab) of the administration portal.<br> This parameter is optional if the admin user of the api key only has access to one tenant, but mandatory if he has access to multiple tenants. |
+
+```json
+POST /api/mdm/v2/user/example HTTP/1.1
+Host: go.mycortado.com
+Content-Type: application/json
+
+{
+	...
+    "mtcid":"{tenant id}",
+	...
 }
 ```

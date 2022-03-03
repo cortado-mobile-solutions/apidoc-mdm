@@ -1,7 +1,9 @@
 # Overview
 Group templates must be created with the Cortado MDM in order to be accessed via the API.
 
-Use the access token obtained as described [here](auth.md) on every request as the json field *token*. All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
+Use the access token obtained as described [here](auth.md) on every request as the json field *token*.<br>
+Alternatively use the api key authentication to execute the requests in an admin context. Detailed informations about this authentication method can also be found [here](auth.md).<br>
+All additional request parameters are also added as json fields to the request body. The request content type must be *application/json*.<br>
 Using the Accept-Language request header the response localization can be set. Default is "en" for english, possible other value is "de" for german
 
 **Base API URL: https://go.mycortado.com/api/mdm/v2/group**
