@@ -32,7 +32,7 @@ Content-Type: application/json
 ```
 
 ## Authentication Request
-**This authentication method should only be used to execute requests in a user context. For the admin context the api key authentication is recommended**
+**This authentication method should only be used to execute requests in a user context. For the admin context the api key authentication is recommended**<br>
 An access token can be issued for **admin or user access**. A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.<br>
 An admin account is able to login to the Cortado MDM management console [here](https://go.mycortado.com/fw). A user account is not able to login to this console. A user account can only be created from within the console by the admin.
 
