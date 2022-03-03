@@ -23,6 +23,7 @@ Additionally a **mtcid** parameter has to be added to the requests body if the a
 POST /api/mdm/v2/user/example HTTP/1.1
 Host: go.mycortado.com
 Content-Type: application/json
+Authorization: Api-Key my_api_key
 
 {
 	...
