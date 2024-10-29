@@ -167,7 +167,7 @@ Possible subtask failures are for example when sending the onboarding email fail
 | **sendemail** | Optional boolean value. If this is *true* an onboarding email will be send to the new user during the creation process. Default is *true* |
 | **lastname** | Optional last name of the new user |
 | **firstname** | Optional first name of the new user |
-| **grouptemplateid** | Optional group template id of the new user. By default the default user group template will be used |
+| **grouptemplateid** | Optional group id of the new user. By default the default user group will be used |
 | **password** | Optional password of the new user |
 
 ```json

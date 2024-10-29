@@ -1,5 +1,5 @@
 # Overview
-Group templates must be created with the Cortado MDM in order to be accessed via the API.
+Groups must be created with the Cortado MDM in order to be accessed via the API.
 
 **Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
 To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
@@ -25,7 +25,7 @@ Authorization: Api-Key my_api_key
 
 | HTTP Status | Description |
 | ------------ | ------------ |
-| 200 | Request successfull. The response body will contain optional group template data. |
+| 200 | Request successfull. The response body will contain optional group data. |
 | 401 | Authentication has failed. The access token was not passed or is invalid. You need to refresh the access token first. |
 | 403 | Action forbidden. For example when a user access token is send in the request that is only usable with an admin access token. |
 
@@ -35,17 +35,17 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **description** | the description of the group template |
-| **id** | the id of the group template |
-| **name** | the name of the group template |
-| **priority** | the priority of the group template |
-| **sid** | the sid of the group template |
+| **description** | the description of the group |
+| **id** | the id of the group |
+| **name** | the name of the group |
+| **priority** | the priority of the group |
+| **sid** | the sid of the group |
 
-## Get Group Templates
+## Get Group
 This request can only be used by sending an admin access token.<br>
-By sending such a token informations about all group templates of the admin access tokens tenant can be retrieved.
+By sending such a token informations about all groups of the admin access tokens tenant can be retrieved.
 
-### Get Group Templates Request
+### Get Groups Request
 
 #### Parameters
 
@@ -59,7 +59,7 @@ Authorization: Api-Key my_api_key
 }
 ```
 
-### Get Group Templates Response
+### Get Groups Response
 
 ```json
 HTTP/1.1 200 OK
@@ -72,9 +72,9 @@ Content-Type: application/json
     "tokenstatus": null,
     "data": [
         {
-            "description": "This template is used for ccs users that are not in a managed active directory group.",
+            "description": "This group is used for ccs users that are not in a managed active directory group.",
             "id": 1,
-            "name": "Default Group Template",
+            "name": "Default Group",
             "priority": 0,
             "sid": "default_user_template"
         },

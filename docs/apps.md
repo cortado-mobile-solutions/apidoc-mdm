@@ -94,6 +94,9 @@ Content-Type: application/json
                 },
                 "uninstall": {
                     "visible": false
+                },
+                "update": {
+                    "visible": false
                 }
             },
             "apptype": "AU",
@@ -114,6 +117,9 @@ Content-Type: application/json
                 },
                 "uninstall": {
                     "visible": false
+                },
+                "update": {
+                    "visible": true
                 }
             },
             "apptype": "AU",
@@ -176,6 +182,9 @@ Content-Type: application/json
                 "visible": false
             },
             "uninstall": {
+                "visible": false
+            },
+            "update": {
                 "visible": false
             }
         },

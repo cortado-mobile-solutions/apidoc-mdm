@@ -41,11 +41,12 @@ An admin account is able to login to the Cortado MDM management console [here](h
 
 | Parameter | Values | Description |
 | ------------ | ------------- | ------------ |
-| **type** | basic | Currently, only basic authentication is supported. |
+| **type** | basic, microsoft | *basic* for cortado user/admin authentication, *microsoft* for azure ad user authentication |
 | **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
 | **username** |  | The Cortado MDM user/admin e-mail address |
 | **password** |  | The Cortado MDM password of the admin/user |
 | **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account |
+| **token** |  | The msidtoken (required for requests with the type *microsoft* only) |
 
 ```json
 POST /api/mdm/v2/user/login HTTP/1.1
@@ -57,7 +58,8 @@ Content-Type: application/json
     "usertype":"user|admin",
     "username":"{username}",
     "password":"{password}",
-    "mtcid":"{tenant id}"
+    "mtcid":"{tenant id}",
+	"token":"{msidtoken}"
 }
 ```
 
