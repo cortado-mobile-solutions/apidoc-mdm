@@ -1,5 +1,5 @@
 # Overview
-Groups must be created with the Cortado MDM in order to be accessed via the API.
+Groups must be created with the Cortado MDM in order to be accessed via the API. 
 
 **Recommended:**To authenticate use the api key, obtained as described [here](auth.md), on every request as the authorization header like this: *Authorization: Api-Key my_api_key*<br>
 To execute requests in a user context use the access token, obtained as described [here](auth.md), on the request as the json field *token*.<br>
