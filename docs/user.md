@@ -51,13 +51,6 @@ When sending an admin access token and no sid parameter the user informations fo
 
 ### User Info Request
 
-#### Parameters
-The sid parameter is only used if the request is send by an admin. It can be retrieved through the device list request as described [here](device.md)
-
-| Field | Description |
-| ------------ | ------------ |
-| **sid** | Optional sid of the user |
-
 ```json
 POST /api/mdm/v2/user/info HTTP/1.1
 Host: go.mycortado.com
@@ -68,6 +61,13 @@ Authorization: Api-Key my_api_key
     "sid":"{usersid}"
 }
 ```
+
+#### Parameters
+The sid parameter is only used if the request is send by an admin. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **sid** | Optional sid of the user |
 
 ### User Info Response
 
@@ -98,8 +98,6 @@ This request can only be used by sending an admin access token.<br>
 By sending such a token informations about all users of the admin access tokens tenant can be retrieved.
 
 ### User List Request
-
-#### Parameters
 
 ```json
 POST /api/mdm/v2/user/list HTTP/1.1
@@ -158,18 +156,6 @@ Possible subtask failures are for example when sending the onboarding email fail
 
 ### User Create Request
 
-#### Parameters
-
-| Field | Description |
-| ------------ | ------------ |
-| **email** | The email of the new user |
-| **emailculture** | Optional email language for the new user. Valid values are *de-DE* or *en-US*. Default is *de-DE* |
-| **sendemail** | Optional boolean value. If this is *true* an onboarding email will be send to the new user during the creation process. Default is *true* |
-| **lastname** | Optional last name of the new user |
-| **firstname** | Optional first name of the new user |
-| **grouptemplateid** | Optional group id of the new user. By default the default user group will be used |
-| **password** | Optional password of the new user |
-
 ```json
 POST /api/mdm/v2/user/create HTTP/1.1
 Host: go.mycortado.com
@@ -186,6 +172,18 @@ Authorization: Api-Key my_api_key
    "password": "secret"
 }
 ```
+
+#### Parameters
+
+| Field | Description |
+| ------------ | ------------ |
+| **email** | The email of the new user |
+| **emailculture** | Optional email language for the new user. Valid values are *de-DE* or *en-US*. Default is *de-DE* |
+| **sendemail** | Optional boolean value. If this is *true* an onboarding email will be send to the new user during the creation process. Default is *true* |
+| **lastname** | Optional last name of the new user |
+| **firstname** | Optional first name of the new user |
+| **grouptemplateid** | Optional group id of the new user. By default the default user group will be used |
+| **password** | Optional password of the new user |
 
 ### User Create Success Response
 
@@ -228,14 +226,6 @@ With this request the password of a user can be changed. This request is only av
 
 ### User Change Password Request
 
-#### Parameters
-
-| Field | Description |
-| ------------ | ------------ |
-| **confirmnewpassword** | The confirmation of the new password |
-| **newpassword** | The new password |
-| **oldpassword** | The current password |
-
 ```json
 POST /api/mdm/v2/user/changepassword HTTP/1.1
 Host: go.mycortado.com
@@ -248,6 +238,14 @@ Authorization: Api-Key my_api_key
    "oldpassword": "{old password}"
 }
 ```
+
+#### Parameters
+
+| Field | Description |
+| ------------ | ------------ |
+| **confirmnewpassword** | The confirmation of the new password |
+| **newpassword** | The new password |
+| **oldpassword** | The current password |
 
 ### User Change Password Response
 
@@ -269,14 +267,6 @@ The email will contain a link to reset the password which also contains a reset 
 
 ### User Forgot Password Request
 
-#### Parameters
-Valid user types are: user, admin
-
-| Field | Description |
-| ------------ | ------------ |
-| **emailaddress** | The email address of the user |
-| **usertype** | The user type (user or admin) |
-
 ```json
 POST /api/mdm/v2/user/forgotpassword HTTP/1.1
 Host: go.mycortado.com
@@ -288,6 +278,14 @@ Content-Type: application/json
 }
 ```
 
+#### Parameters
+Valid user types are: user, admin
+
+| Field | Description |
+| ------------ | ------------ |
+| **emailaddress** | The email address of the user |
+| **usertype** | The user type (user or admin) |
+
 ### User Forgot Password Response
 The response will always be successful, only because of infrastructural problems (network, database etc.) an error code will be returned<br>
 If the user exists an email, with the necessary informations, will get send to the user.
@@ -297,15 +295,6 @@ With this request the password of a user can be reset. It is only available for 
 It will trigger a confirmation email or an instruction email about enrolling a new device (if the optional parameter *join* was send with the value *true*)
 
 ### User Reset Password Request
-
-#### Parameters
-Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
-
-| Field | Description |
-| ------------ | ------------ |
-| **confirmnewpassword** | The confirmation of the new password |
-| **newpassword** | The new password |
-| **join** | Optional boolean value. If this is *true* an email about enrolling a new device will be send to the customer after the successful password reset instead of a confirmation email that the password was successfully changed |
 
 ```json
 POST /api/mdm/v2/user/resetpassword HTTP/1.1
@@ -319,6 +308,15 @@ Content-Type: application/json
    "join": "true"
 }
 ```
+
+#### Parameters
+Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
+
+| Field | Description |
+| ------------ | ------------ |
+| **confirmnewpassword** | The confirmation of the new password |
+| **newpassword** | The new password |
+| **join** | Optional boolean value. If this is *true* an email about enrolling a new device will be send to the customer after the successful password reset instead of a confirmation email that the password was successfully changed |
 
 ### User Reset Password Success Response
 
@@ -339,9 +337,6 @@ With this request informations about a reset password token, like the display na
 
 ### User Reset Password Info Request
 
-#### Parameters
-Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
-
 ```json
 POST /api/mdm/v2/user/resetpasswordinfo HTTP/1.1
 Host: go.mycortado.com
@@ -351,6 +346,9 @@ Content-Type: application/json
    "token": "{reset password token}"
 }
 ```
+
+#### Parameters
+Reset password token - This token is part of the forgot password email that is send to a user through the forgot password request.
 
 ### User Reset Password Info Response
 
@@ -374,15 +372,6 @@ With this request a users mdm profile can be downloaded. This request is only av
 When using Apple BYOD make sure that the user has a *Managed Apple ID* through the user info request first.
 
 ### User MDM Profile Request
-
-#### Parameters
-
-| Field | Description |
-| ------------ | ------------ |
-| **mdmtype** | The mdmtype. Valid values are "android" or "apple" |
-| **byod** | Optional boolean parameter. Set to *true* if a mdm profile for a byod device is requested |
-| **mac** | Optional boolean parameter. Set to *true* if a mdm profile for a mac device is requested |
-| **html** | Optional boolean parameter. Set to *true* if a response html page should be returned |
 
 ##### User MDM Profile Request for Apple iOS/iPadOS BYOD with html response
 
@@ -433,6 +422,15 @@ To show a web page use "html" with "true".
 (...)user/mdmprofile?json={"mdmtype":"apple","byod":"true","html":"true","token":"x"}
 ```
 
+#### Parameters
+
+| Field | Description |
+| ------------ | ------------ |
+| **mdmtype** | The mdmtype. Valid values are "android" or "apple" |
+| **byod** | Optional boolean parameter. Set to *true* if a mdm profile for a byod device is requested |
+| **mac** | Optional boolean parameter. Set to *true* if a mdm profile for a mac device is requested |
+| **html** | Optional boolean parameter. Set to *true* if a response html page should be returned |
+
 ### User MDM Profile Response
 File stream
 
@@ -442,13 +440,6 @@ By sending such a token a user can be deleted from the admin access tokens tenan
 *Deleting a user that has devices, without removing the MDM from the devices before, can make the devices useless (bricked).*
 
 ### User Delete Request
-
-#### Parameters
-The *sid* can be obtained through the user list request
-
-| Field | Description |
-| ------------ | ------------ |
-| **sid** | The sid of the user to delete |
 
 ```json
 POST /api/mdm/v2/user/delete HTTP/1.1
@@ -460,6 +451,13 @@ Authorization: Api-Key my_api_key
 	"sid": "{sid}"
 }
 ```
+
+#### Parameters
+The *sid* can be obtained through the user list request
+
+| Field | Description |
+| ------------ | ------------ |
+| **sid** | The sid of the user to delete |
 
 ### User Delete Success Response
 

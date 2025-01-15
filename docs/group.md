@@ -35,19 +35,16 @@ The following fields can be returned by the API containing information about the
 
 | Field | Description |
 | ------------ | ------------ |
-| **description** | the description of the group |
-| **id** | the id of the group |
-| **name** | the name of the group |
-| **priority** | the priority of the group |
-| **sid** | the sid of the group |
+| **description** | The description of the group |
+| **grouptype** | The type of the group.<br>0: Local<br>1: Microsoft Entra<br> |
+| **id** | The id of the group |
+| **name** | The name of the group |
 
-## Get Group
+## Get Groups
 This request can only be used by sending an admin access token.<br>
 By sending such a token informations about all groups of the admin access tokens tenant can be retrieved.
 
 ### Get Groups Request
-
-#### Parameters
 
 ```json
 POST /api/mdm/v2/group/list HTTP/1.1

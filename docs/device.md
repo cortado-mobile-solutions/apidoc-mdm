@@ -95,11 +95,10 @@ The following fields can be returned by the API containing information about the
 
 
 ## List Devices
-Retrieve a list of all managed devices and basic details about the device status. The response contains an array of all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.
+Retrieve a list of all managed devices and basic details about the device status. The response contains an array of all devices assigned to the authenticated user. Using an administrator access token to request the devices, the response will contain all devices of the managed tenant.<br>
+With the filter parameter the devices can be filtered for wiped/managed devices or for devices within a certain last contact or location timestamp timespan. All filters are combinable
 
 ### List Devices Request
-
-#### Parameters
 
 ```json
 POST /api/mdm/v2/device/list HTTP/1.1
@@ -108,9 +107,44 @@ Content-Type: application/json
 Authorization: Api-Key my_api_key
 
 {
-	"culture":"de"
+    "filter": {
+        "managed": true,
+        "wiped": true,
+        "lastcontact": {
+            "from": "2025-01-06",
+            "to": "2025-08-08"
+        },
+        "locationtimestamp": {
+            "from": "2025-01-06",
+            "to": "2025-08-08"
+        }
+    }
 }
 ```
+
+#### Parameters
+| Field | Description |
+| ------------ | ------------ |
+| **filter** | Optional filter parameter. |
+| **filter - managed** | Optional boolean parameter. Set to *true* to only retrieve managed devices, *false* for not managed devices. |
+| **filter - wiped** | Optional boolean parameter. Set to *true* to only retrieve wiped devices, *false* for not wiped devices. |
+| **filter - lastcontact (from/to)** | Optional DateTime string parameters. Can be used to only retrieve devices with a last contact value within a certain timespan. (including) |
+| **filter - locationtimestamp (from/to)** | Optional DateTime string parameters. Can be used to only retrieve devices with a location timestamp value within a certain timespan. (including). A device with no location timestamp won´t be returned if this filter is used |
+
+#### Examples for supported DateTime values in filter
+```text
+2024-12-01
+2024-12-01T00:00:00.000Z
+2024-12-01T07:00:00.000+7
+2024-12-01T07:00:00.000+07
+2024-12-01T07:00:00.000+07:00
+2024-12-01T00:00:00Z
+2024-12-01T07:00:00+7
+2024-12-01T07:00:00+07
+2024-12-01T07:00:00+07:00
+20241201T000000Z
+```
+
 
 ### List Devices Response
 
@@ -194,9 +228,6 @@ Returns detailed informations about a user device. Using an administrator access
 
 ### Device Info Request
 
-### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
 ```json
 POST /api/mdm/v2/device/info HTTP/1.1
 Host: go.mycortado.com
@@ -204,10 +235,12 @@ Content-Type: application/json
 Authorization: Api-Key my_api_key
 
 {
-    "clientid":"{client id}",
-	"culture":"de"
+    "clientid":"{client id}"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ### Device Info Response
 
@@ -287,16 +320,6 @@ Locks the screen of the user device. Using an administrator access token the scr
 
 ### Lock Screen Request
 
-#### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
-| Field | Description |
-| ------------ | ------------ |
-| **message** | Optional message shown on the lockscreen (iOS only) |
-| **phonenumber** | Optional phone number shown on the lockscreen (iOS only)|
-| **macpin** | Optional 6-digit pin (macOS only)|
-
-
 ```json
 POST /api/mdm/v2/device/lockscreen HTTP/1.1
 Host: go.mycortado.com
@@ -310,6 +333,15 @@ Authorization: Api-Key my_api_key
 	"macpin":"{macpin}"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+
+| Field | Description |
+| ------------ | ------------ |
+| **message** | Optional message shown on the lockscreen (iOS only) |
+| **phonenumber** | Optional phone number shown on the lockscreen (iOS only)|
+| **macpin** | Optional 6-digit pin (macOS only)|
 
 ### Lock Screen Response
 
@@ -329,13 +361,7 @@ Content-Type: application/json
 (Partial)Wipes the user device. Depending on the current management mode, the device is reset to factory defaults or only a work container is removed from the device. Using an administrator access token any device of the tenant can be wiped.<br>
 Sending the optional parameter *partial* with the value *true* a partial wipe will be, if possible, performed. This will only removed the mdm data on the device
 
-### Wipe Request
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
-| Field | Description |
-| ------------ | ------------ |
-| **macpin** | Optional 6-digit pin (macOS, full wipe only) |
-| **partial** | Optional boolean parameter. Set to *true* to perform a partial wipe |
+### (Partial)Wipe Request
 
 ```json
 POST /api/mdm/v2/device/wipe HTTP/1.1
@@ -349,6 +375,14 @@ Authorization: Api-Key my_api_key
     "partial":"true"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+
+| Field | Description |
+| ------------ | ------------ |
+| **macpin** | Optional 6-digit pin (macOS, full wipe only) |
+| **partial** | Optional boolean parameter. Set to *true* to perform a partial wipe |
 
 ### Wipe Response
 
@@ -366,23 +400,10 @@ Content-Type: application/json
 
 
 
-## Lost Mode
+## Enable Lost Mode
 Depending on the management mode of the device, the lost mode can be enabled on the device to lock down the device. If the lost mode is enabled, the device passcode can be changed and the location can be retrieved. Using an administrator access token the lost mode of any device of the tenant can be enabled.
 
-### Enable Lost Mode
-
-#### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
-Sending either the message and/or phonenumber parameter is mandatory
-
-| Field | Description |
-| ------------ | ------------ |
-| **message** | Message which is shown on the lockscreen of the device, if the lost mode was enabled. |
-| **phonenumber** | Phone number which is shown on the lockscreen of the device, if the lost mode was enabled. |
-| **footnote** | Footnote on the bottom of the lockscreen, if the lost mode was enabled. |
-| **password** | New passcode that will be set for the device to unlock (Android only) |
-
-#### Enable Lost Mode Request
+### Enable Lost Mode Request
 
 ```json
 POST /api/mdm/v2/device/enablelostmode HTTP/1.1
@@ -399,7 +420,18 @@ Authorization: Api-Key my_api_key
 }
 ```
 
-#### Enable Lost Mode Response
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
+Sending either the message and/or phonenumber parameter is mandatory
+
+| Field | Description |
+| ------------ | ------------ |
+| **message** | Message which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **phonenumber** | Phone number which is shown on the lockscreen of the device, if the lost mode was enabled. |
+| **footnote** | Footnote on the bottom of the lockscreen, if the lost mode was enabled. |
+| **password** | New passcode that will be set for the device to unlock (Android only) |
+
+### Enable Lost Mode Response
 
 ```json
 HTTP/1.1 200 OK
@@ -413,13 +445,10 @@ Content-Type: application/json
 }
 ```
 
-### Disable Lost Mode
+## Disable Lost Mode
 This will disable a possibly enabled lost mode of a device
 
-#### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
-#### Disable Lost Mode Request
+### Disable Lost Mode Request
 
 ```json
 POST /api/mdm/v2/device/disablelostmode HTTP/1.1
@@ -432,7 +461,10 @@ Authorization: Api-Key my_api_key
 }
 ```
 
-#### Disable Lost Mode Response
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
+
+### Disable Lost Mode Response
 
 ```json
 HTTP/1.1 200 OK
@@ -446,13 +478,10 @@ Content-Type: application/json
 }
 ```
 
-## Location
+## Trigger Location Retrieval
 The retrieval of the user device location can be triggered. Fetching the latest retrieved device location can be done using the [device info](#device-info) request. Using an administrator access token the retrieval of the location of any device of the tenant can be triggered.
 
 ### Trigger Location Retrieval Request
-
-### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ```json
 POST /api/mdm/v2/device/requestlocation HTTP/1.1
@@ -464,6 +493,9 @@ Authorization: Api-Key my_api_key
     "clientid":"{client id}"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ### Trigger Location Retrieval Response
 
@@ -484,14 +516,6 @@ This will reset the passcode of a device. For Apple devices the passcode will be
 
 ### Reset Passcode Request
 
-### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
-The password parameter is only for Android devices mandatory and only then evaluated.
-
-| Field | Description |
-| ------------ | ------------ |
-| **password** | new passcode that will be set for the device to unlock (Android only) |
-
 ```json
 POST /api/mdm/v2/device/resetpasscode HTTP/1.1
 Host: go.mycortado.com
@@ -503,6 +527,14 @@ Authorization: Api-Key my_api_key
     "clientid":"{client id}"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request<br>
+The password parameter is only for Android devices mandatory and only then evaluated.
+
+| Field | Description |
+| ------------ | ------------ |
+| **password** | new passcode that will be set for the device to unlock (Android only) |
 
 ### Reset Passcode Response
 
@@ -524,9 +556,6 @@ Using an administrator access token the retrieval of the location of any device 
 
 ### Device Mdm App List Request
 
-### Parameters
-Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
-
 ```json
 POST /api/mdm/v2/device/requestapplist HTTP/1.1
 Host: go.mycortado.com
@@ -537,6 +566,9 @@ Authorization: Api-Key my_api_key
     "clientid":"{client id}"
 }
 ```
+
+#### Parameters
+Use either *clientid*, *imei* or *serialnumber* to specify the device. They can be retrieved through the list devices request
 
 ### Device Mdm App List Response
 

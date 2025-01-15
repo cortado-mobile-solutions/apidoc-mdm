@@ -46,8 +46,6 @@ Retrieve informations about the system. This request does not need any authentic
 
 ### System Info Request
 
-#### Parameters
-
 ```json
 POST /api/mdm/v2/system/info HTTP/1.1
 Host: go.mycortado.com
@@ -79,8 +77,6 @@ Retrieve the Root CA public key part.
 
 ### Download Root CA Request
 
-#### Parameters
-
 ```json
 POST /api/mdm/v2/system/rootca HTTP/1.1
 Host: go.mycortado.com
@@ -97,4 +93,4 @@ This request is also available as a GET request. Just pass the json as a query p
 ```
 
 ### System Info Response
-The Root CA public kea part as a file
+The Root CA public key part as a file

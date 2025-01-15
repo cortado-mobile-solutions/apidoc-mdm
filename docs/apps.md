@@ -57,13 +57,6 @@ Retrieve a list of all apps assigned to a user and a optional device. The respon
 
 ### Get App List Request
 
-#### Parameters
-The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
-
-| Field | Description |
-| ------------ | ------------ |
-| **clientid** | Optional clientid (user request only) |
-
 ```json
 POST /api/mdm/v2/app/list HTTP/1.1
 Host: go.mycortado.com
@@ -74,6 +67,13 @@ Authorization: Api-Key my_api_key
     "clientid": "{client_id}"
 }
 ```
+
+#### Parameters
+The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | Optional clientid (user request only) |
 
 ### Get App List Response
 
@@ -145,14 +145,6 @@ Retrieve informations about an app that is assigned to a user or a device (with 
 
 ### Get App Info Request
 
-#### Parameters
-The *id* of the app can be obtained through the Get App List request<br>
-The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
-
-| Field | Description |
-| ------------ | ------------ |
-| **clientid** | Optional clientid (user request only) |
-
 ```json
 POST /api/mdm/v2/app/info HTTP/1.1
 Host: go.mycortado.com
@@ -164,6 +156,14 @@ Authorization: Api-Key my_api_key
     "clientid": "{client_id}"
 }
 ```
+
+#### Parameters
+The *id* of the app can be obtained through the Get App List request<br>
+The *clientid* is optional. It can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | Optional clientid (user request only) |
 
 ### Get App Info Response
 
@@ -207,9 +207,6 @@ Retrieve the image of an app. The response is the image file.
 
 ### Get App Image Request
 
-#### Parameters
-The *id* of the app can be obtained through the Get App List request
-
 ```json
 POST /api/mdm/v2/app/image HTTP/1.1
 Host: go.mycortado.com
@@ -226,6 +223,9 @@ This request is also available as a GET request. Just pass the json as a query p
 (...)app/image?json={"id": "x","token": "x"}
 ```
 
+#### Parameters
+The *id* of the app can be obtained through the Get App List request
+
 ### Get App Image Response
 The image file
 
@@ -234,14 +234,6 @@ With this request an app installation for a device of a user can be triggered. T
 The request can be used for optional and mandatory apps.<br>
 
 ### Install App Request
-
-#### Parameters
-The *id* of the app can be obtained through the Get App List request<br>
-The *clientid* can be retrieved through the device list request as described [here](device.md)
-
-| Field | Description |
-| ------------ | ------------ |
-| **clientid** | The clientid of the device |
 
 ```json
 POST /api/mdm/v2/app/install HTTP/1.1
@@ -254,6 +246,14 @@ Authorization: Api-Key my_api_key
     "clientid": "{client_id}"
 }
 ```
+
+#### Parameters
+The *id* of the app can be obtained through the Get App List request<br>
+The *clientid* can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | The clientid of the device |
 
 ### Install App Success Response
 
@@ -275,14 +275,6 @@ The request can be used for optional and mandatory apps.<br>
 
 ### Uninstall App Request
 
-#### Parameters
-The *id* of the app can be obtained through the Get App List request<br>
-The *clientid* can be retrieved through the device list request as described [here](device.md)
-
-| Field | Description |
-| ------------ | ------------ |
-| **clientid** | The clientid of the device |
-
 ```json
 POST /api/mdm/v2/app/uninstall HTTP/1.1
 Host: go.mycortado.com
@@ -294,6 +286,14 @@ Authorization: Api-Key my_api_key
     "clientid": "{client_id}"
 }
 ```
+
+#### Parameters
+The *id* of the app can be obtained through the Get App List request<br>
+The *clientid* can be retrieved through the device list request as described [here](device.md)
+
+| Field | Description |
+| ------------ | ------------ |
+| **clientid** | The clientid of the device |
 
 ### Uninstall App Success Response
 

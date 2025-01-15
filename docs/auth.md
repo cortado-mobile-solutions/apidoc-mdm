@@ -37,17 +37,6 @@ Authorization: Api-Key my_api_key
 An access token can be issued for **admin or user access**. A user token can only be used for managing devices of the authenticated user. An admin token grants access to all devices of the managed tenant.<br>
 An admin account is able to login to the Cortado MDM management console [here](https://go.mycortado.com/fw). A user account is not able to login to this console. A user account can only be created from within the console by the admin.
 
-### Parameters
-
-| Parameter | Values | Description |
-| ------------ | ------------- | ------------ |
-| **type** | basic, microsoft | *basic* for cortado user/admin authentication, *microsoft* for azure ad user authentication |
-| **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
-| **username** |  | The Cortado MDM user/admin e-mail address |
-| **password** |  | The Cortado MDM password of the admin/user |
-| **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account |
-| **token** |  | The msidtoken (required for requests with the type *microsoft* only) |
-
 ```json
 POST /api/mdm/v2/user/login HTTP/1.1
 Host: go.mycortado.com
@@ -62,6 +51,17 @@ Content-Type: application/json
 	"token":"{msidtoken}"
 }
 ```
+
+### Parameters
+
+| Parameter | Values | Description |
+| ------------ | ------------- | ------------ |
+| **type** | basic, microsoft | *basic* for cortado user/admin authentication, *microsoft* for azure ad user authentication |
+| **usertype** | user, admin | *user* for user authentication or *admin* for an admin authentication |
+| **username** |  | The Cortado MDM user/admin e-mail address |
+| **password** |  | The Cortado MDM password of the admin/user |
+| **mtcid** |  | The id of your Cortado MDM tenant (required for admin authentication request only). The mtcid for a tenant can currently only be retrieved by a Cortado MDM master account |
+| **token** |  | The msidtoken (required for requests with the type *microsoft* only) |
 
 ## Authentication Response
 
