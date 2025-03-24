@@ -71,6 +71,7 @@ The following fields can be returned by the API containing information about the
 | **clientid** | Unique device identifier |
 | **displayname** | Device display name |
 | **enrollmenttype** | Shows the enrollment type of the device. Values can be<br>0: Zero-Touch (Android)<br>1: Device Enrollment Program (macOS only)<br>2: User Enrollment (iOS/ipadOS)<br>3: Samsung Knox Mobile Enrollment. If the device was not enrolled with one of the listed above then *null* indicates no enrollment method. |
+| **exchangeid** | Exchange id of the device |
 | **freestorageinfo** | Free storage on the device |
 | **freestoragemb** | Free storage on the device in megabytes |
 | **imei** | Device IMEI (if device has a SIM card inserted) |
@@ -194,6 +195,7 @@ Content-Type: application/json
          "clientid": "e60cf0e25e63430694441870c27a8b42",
          "displayname": "iPhone",
          "enrollmenttype": null,
+		 "exchangeid": null,
          "freestorageinfo": "52.2 GB / 64.0 GB - 81.55 %",
          "freestoragemb": 53444,
          "imei": "357351093108963",
@@ -290,6 +292,7 @@ Content-Type: application/json
          "clientid": "e60cf0e25e63430694441870c27a8b42",
          "displayname": "iPhone",
          "enrollmenttype": null,
+		 "exchangeid": null,
          "freestorageinfo": "52.2 GB / 64.0 GB - 81.55 %",
          "freestoragemb": 53444,
          "imei": "357351093108963",
